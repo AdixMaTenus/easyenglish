@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>EasyEnglish — Lesson 2</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <span class="logo">📚</span>
+        <span class="brand-name">EasyEnglish</span>
+      </div>
+      
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="lesson1.html">Lesson 1</a>
+        <a href="lesson2.html" class="active">Lesson 2</a>
+        <a href="results.html">My Results</a>
+      </div>
+
+      <div class="nav-right">
+        <div class="lang-switch">
+          <button class="lang-btn" data-lang="kk" onclick="setLang('kk')" aria-label="Қазақ тілі">KZ</button>
+          <button class="lang-btn" data-lang="ru" onclick="setLang('ru')" aria-label="Русский">RU</button>
+          <button class="lang-btn" data-lang="en" onclick="setLang('en')" aria-label="English">EN</button>
+        </div>
+
+        <div class="auth-section">
+          <button id="loginBtn" class="btn-login">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor">
+              <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z" fill="#4285F4"/>
+              <path d="M9.003 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.96v2.332C2.44 15.983 5.485 18 9.003 18z" fill="#34A853"/>
+              <path d="M3.964 10.712c-.18-.54-.282-1.117-.282-1.71 0-.593.102-1.17.282-1.71V4.96H.957C.347 6.175 0 7.55 0 9.002c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/>
+              <path d="M9.003 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.464.891 11.426 0 9.003 0 5.485 0 2.44 2.017.96 4.96L3.967 7.29c.708-2.127 2.692-3.71 5.036-3.71z" fill="#EA4335"/>
+            </svg>
+            Google
+          </button>
+          
+          <div id="userProfile" class="user-profile">
+            <img id="userPhoto" class="avatar" alt="User" />
+            <span id="userName"></span>
+            <button class="btn-logout" onclick="logout()">Logout</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <div class="card">
+      <div class="lesson-header">
+        <div class="lesson-icon-large">🌳</div>
+        <h2>Lesson 2: The Amazon Rainforest</h2>
+        <p class="lead">Read the text and answer the questions below.</p>
+      </div>
+
+      <div class="section textblock">
+        The Amazon Rainforest, located in South America, is the largest rainforest in the world. It covers about 5.5 million square kilometers, spreading across nine countries, most of which lies in Brazil. The Amazon is home to an incredible variety of plants and animals, many of which cannot be found anywhere else. Scientists say that one in ten known species in the world lives in this forest. Because of its ability to produce a large part of the planet's oxygen, the Amazon is often called the "lungs of the Earth." The rainforest also plays an important role in regulating the global climate. However, the Amazon is under serious threat today. Deforestation, fires, and human activity destroy thousands of square kilometers every year. Protecting the Amazon is important not only for South America but for the entire planet.
+      </div>
+
+      <form class="quiz section" data-lesson-id="lesson2">
+        <!-- Q1 -->
+        <fieldset class="question" data-correct="B">
+          <legend class="q-title">1) Why is the Amazon called the "lungs of the Earth"?</legend>
+          <div class="options">
+            <label class="option"><input type="radio" name="q1" value="A"><span class="badge">A</span> Because it is very old</label>
+            <label class="option"><input type="radio" name="q1" value="B"><span class="badge">B</span> Because it produces oxygen</label>
+            <label class="option"><input type="radio" name="q1" value="C"><span class="badge">C</span> Because it has many animals</label>
+            <label class="option"><input type="radio" name="q1" value="D"><span class="badge">D</span> Because it covers many countries</label>
+          </div>
+        </fieldset>
+
+        <!-- Q2 -->
+        <fieldset class="question" data-correct="A">
+          <legend class="q-title">2) How many countries does the Amazon spread across?</legend>
+          <div class="options">
+            <label class="option"><input type="radio" name="q2" value="A"><span class="badge">A</span> Nine</label>
+            <label class="option"><input type="radio" name="q2" value="B"><span class="badge">B</span> Five</label>
+            <label class="option"><input type="radio" name="q2" value="C"><span class="badge">C</span> Ten</label>
+            <label class="option"><input type="radio" name="q2" value="D"><span class="badge">D</span> Two</label>
+          </div>
+        </fieldset>
+
+        <!-- Q3 -->
+        <fieldset class="question" data-correct="A">
+          <legend class="q-title">3) What fraction of the world's species lives in the Amazon?</legend>
+          <div class="options">
+            <label class="option"><input type="radio" name="q3" value="A"><span class="badge">A</span> One in ten</label>
+            <label class="option"><input type="radio" name="q3" value="B"><span class="badge">B</span> One in five</label>
+            <label class="option"><input type="radio" name="q3" value="C"><span class="badge">C</span> Half of all species</label>
+            <label class="option"><input type="radio" name="q3" value="D"><span class="badge">D</span> Almost all species</label>
+          </div>
+        </fieldset>
+
+        <!-- Q4 -->
+        <fieldset class="question" data-correct="C">
+          <legend class="q-title">4) What role does the Amazon play in the climate?</legend>
+          <div class="options">
+            <label class="option"><input type="radio" name="q4" value="A"><span class="badge">A</span> It produces electricity</label>
+            <label class="option"><input type="radio" name="q4" value="B"><span class="badge">B</span> It causes earthquakes</label>
+            <label class="option"><input type="radio" name="q4" value="C"><span class="badge">C</span> It regulates the global climate</label>
+            <label class="option"><input type="radio" name="q4" value="D"><span class="badge">D</span> It builds new rivers</label>
+          </div>
+        </fieldset>
+
+        <!-- Q5 -->
+        <fieldset class="question" data-correct="B">
+          <legend class="q-title">5) What is one of the biggest threats to the Amazon?</legend>
+          <div class="options">
+            <label class="option"><input type="radio" name="q5" value="A"><span class="badge">A</span> Tourism</label>
+            <label class="option"><input type="radio" name="q5" value="B"><span class="badge">B</span> Deforestation</label>
+            <label class="option"><input type="radio" name="q5" value="C"><span class="badge">C</span> Earthquakes</label>
+            <label class="option"><input type="radio" name="q5" value="D"><span class="badge">D</span> Floods</label>
+          </div>
+        </fieldset>
+
+        <!-- True/False -->
+        <fieldset class="question" data-correct="A">
+          <legend class="q-title">6) Most of the Amazon is located in Brazil.</legend>
+          <div class="options">
+            <label class="option"><input type="radio" name="q6" value="A"><span class="badge">A</span> True</label>
+            <label class="option"><input type="radio" name="q6" value="B"><span class="badge">B</span> False</label>
+          </div>
+        </fieldset>
+
+        <fieldset class="question" data-correct="B">
+          <legend class="q-title">7) The Amazon is not important for the climate of the Earth.</legend>
+          <div class="options">
+            <label class="option"><input type="radio" name="q7" value="A"><span class="badge">A</span> True</label>
+            <label class="option"><input type="radio" name="q7" value="B"><span class="badge">B</span> False</label>
+          </div>
+        </fieldset>
+
+        <div class="actions">
+          <button class="btn" data-action="check" type="button">Check Results</button>
+          <button class="btn secondary" data-action="reset" type="button">Reset</button>
+        </div>
+
+        <div class="result"></div>
+      </form>
+    </div>
+  </div>
+
+  <script src="assets/app.js"></script>
+  <script src="assets/auth.js"></script>
+  <script src="assets/quiz.js"></script>
+</body>
+</html>

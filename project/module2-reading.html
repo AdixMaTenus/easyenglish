@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>EasyEnglish — Module 2 Reading</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <span class="logo">📚</span>
+        <span class="brand-name">EasyEnglish</span>
+      </div>
+      
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="module2.html">Module 2</a>
+        <a href="module2-reading.html" class="active">Reading</a>
+        <a href="module2-grammar.html">Grammar</a>
+        <a href="results.html">My Results</a>
+      </div>
+
+      <div class="nav-right">
+        <div class="lang-switch">
+          <button class="lang-btn" data-lang="kk" onclick="setLang('kk')" aria-label="Қазақ тілі">KZ</button>
+          <button class="lang-btn" data-lang="ru" onclick="setLang('ru')" aria-label="Русский">RU</button>
+          <button class="lang-btn" data-lang="en" onclick="setLang('en')" aria-label="English">EN</button>
+        </div>
+
+        <div class="auth-section">
+          <button id="loginBtn" class="btn-login">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor">
+              <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z" fill="#4285F4"/>
+              <path d="M9.003 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.96v2.332C2.44 15.983 5.485 18 9.003 18z" fill="#34A853"/>
+              <path d="M3.964 10.712c-.18-.54-.282-1.117-.282-1.71 0-.593.102-1.17.282-1.71V4.96H.957C.347 6.175 0 7.55 0 9.002c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/>
+              <path d="M9.003 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.464.891 11.426 0 9.003 0 5.485 0 2.44 2.017.96 4.96L3.967 7.29c.708-2.127 2.692-3.71 5.036-3.71z" fill="#EA4335"/>
+            </svg>
+            Google
+          </button>
+          
+          <div id="userProfile" class="user-profile">
+            <img id="userPhoto" class="avatar" alt="User" />
+            <span id="userName"></span>
+            <button class="btn-logout" onclick="logout()">Logout</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <div class="card">
+      <div class="lesson-header">
+        <div class="lesson-icon-large">📖</div>
+        <h2>Module 2: Reading Texts</h2>
+        <p class="lead">Read the texts about technology and innovation</p>
+      </div>
+
+      <!-- Text 1: The Nanobots -->
+      <div class="section textblock">
+        <h3 style="color: var(--primary); margin-bottom: 16px;">The Nanobots</h3>
+        <p>Nanobots, or nanorobots, are microscopic machines designed to perform specific tasks at the nanoscale level. These tiny devices, typically ranging from 1 to 100 nanometers in size, represent one of the most promising frontiers in medical technology and engineering.</p>
+        <p>In medicine, nanobots show tremendous potential for targeted drug delivery, cancer treatment, and precise surgery at the cellular level. They can navigate through the human body, identify diseased cells, and deliver medication directly to affected areas without harming healthy tissue. This approach could revolutionize treatments for various diseases, making them more effective with fewer side effects.</p>
+        <p>Beyond healthcare, nanobots have applications in environmental cleanup, manufacturing, and electronics. They could help remove pollutants from water and air, assemble complex materials atom by atom, and create more efficient computer chips. However, researchers must address challenges related to safety, control, and ethical considerations before nanobots become widely used in everyday applications.</p>
+      </div>
+
+      <!-- Text 2: Pepper the Emotional Robot -->
+      <div class="section textblock">
+        <h3 style="color: var(--primary); margin-bottom: 16px;">Pepper the Emotional Robot</h3>
+        <p>Pepper is a humanoid robot developed by SoftBank Robotics that represents a significant advancement in social robotics. What makes Pepper unique is its ability to recognize and respond to human emotions, making it one of the first robots designed specifically for social interaction rather than industrial tasks.</p>
+        <p>Equipped with cameras, sensors, and advanced algorithms, Pepper can detect facial expressions, voice tones, and body language to assess human emotions. It uses this information to adapt its responses and behavior accordingly. Pepper's design includes expressive eyes, moving arms, and the capability to speak multiple languages, enabling natural communication with people.</p>
+        <p>Currently used in retail stores, hospitals, and homes worldwide, Pepper serves as a customer service assistant, companion for elderly people, and educational tool. While Pepper cannot truly experience emotions, its ability to simulate emotional intelligence helps create more meaningful human-robot interactions and demonstrates how robotics is evolving to address social and emotional needs alongside practical tasks.</p>
+      </div>
+
+      <!-- Text 3: On the Path to True Genius -->
+      <div class="section textblock">
+        <h3 style="color: var(--primary); margin-bottom: 16px;">On the Path to True Genius</h3>
+        <p>Thomas Edison's journey to inventing the practical incandescent light bulb is a classic example of perseverance and systematic experimentation. Contrary to popular belief, Edison didn't suddenly "discover" the light bulb but rather developed it through rigorous testing and continuous improvement.</p>
+        <p>Edison and his team tested over 6,000 different materials for the filament before finding that carbonized bamboo could last over 1,200 hours. His famous quote, "I have not failed. I've just found 10,000 ways that won't work," reflects his approach to innovation. Each unsuccessful attempt provided valuable data that brought him closer to success.</p>
+        <p>The invention of the light bulb in 1879 was not just about creating illumination but about developing an entire electrical system that could make lighting practical for everyday use. Edison's work on generators, wiring, and sockets demonstrated that true innovation often requires solving multiple interconnected problems rather than focusing on a single breakthrough.</p>
+      </div>
+
+      <!-- Text 4: Robots Pros and Cons -->
+      <div class="section textblock">
+        <h3 style="color: var(--primary); margin-bottom: 16px;">Robots: Pros and Cons</h3>
+        <p>Robotics technology has advanced rapidly, bringing both significant benefits and important challenges to society. Understanding these advantages and disadvantages is crucial as we integrate robots more deeply into our daily lives and workplaces.</p>
+        <p><strong>Advantages:</strong> Robots excel at performing repetitive, dangerous, or precision tasks with consistent quality. In manufacturing, they increase productivity and reduce errors. In healthcare, surgical robots enable minimally invasive procedures with enhanced precision. Robots can work in environments hazardous to humans, such as nuclear facilities or deep-sea exploration. They also provide assistance to people with disabilities and support the aging population.</p>
+        <p><strong>Disadvantages:</strong> The automation of jobs raises concerns about employment displacement, particularly for routine manual and cognitive tasks. High initial costs and maintenance requirements can make robotics inaccessible to smaller organizations. Ethical questions arise regarding autonomous decision-making, privacy with surveillance robots, and the potential for military applications. Additionally, over-reliance on robots might lead to the loss of certain human skills and reduce human interaction in some contexts.</p>
+      </div>
+
+      <!-- Quiz Section -->
+      <form class="quiz section" data-lesson-id="module2-reading">
+        
+        <!-- True/False Questions -->
+        <h3 style="color: var(--primary); margin: 32px 0 16px 0;">True/False Questions</h3>
+
+        <fieldset class="question" data-correct="A">
+          <legend class="q-title">1) Nanobots are microscopic machines that operate at the nanoscale level.</legend>
+          <div class="options">
+            <label class="option"><input type="radio" name="q1" value="A"><span class="badge">A</span> True</label>
+            <label class="option"><input type="radio" name="q1" value="B"><span class="badge">B</span> False</label>
+          </div>
+        </fieldset>
+
+        <fieldset class="question" data-correct="B">
+          <legend class="q-title">2) Pepper the robot was primarily designed for industrial manufacturing tasks.</legend>
+          <div class="options">
+            <label class="option"><input type="radio" name="q2" value="A"><span class="badge">A</span> True</label>
+            <label class="option"><input type="radio" name="q2" value="B"><span class="badge">B</span> False</label>
+          </div>
+        </fieldset>
+
+        <fieldset class="question" data-correct="A">
+          <legend class="q-title">3) Thomas Edison tested thousands of materials before finding a suitable filament for his light bulb.</legend>
+          <div class="options">
+            <label class="option"><input type="radio" name="q3" value="A"><span class="badge">A</span> True</label>
+            <label class="option"><input type="radio" name="q3" value="B"><span class="badge">B</span> False</label>
+          </div>
+        </fieldset>
+
+        <!-- Multiple Choice Questions -->
+        <h3 style="color: var(--primary); margin: 32px 0 16px 0;">Multiple Choice Questions</h3>
+
+        <fieldset class="question" data-correct="C">
+          <legend class="q-title">4) What is the primary application of nanobots in medicine?</legend>
+          <div class="options">
+            <label class="option"><input type="radio" name="q4" value="A"><span class="badge">A</span> Building hospitals</label>
+            <label class="option"><input type="radio" name="q4" value="B"><span class="badge">B</span> Cleaning surgical tools</label>
+            <label class="option"><input type="radio" name="q4" value="C"><span class="badge">C</span> Targeted drug delivery</label>
+            <label class="option"><input type="radio" name="q4" value="D"><span class="badge">D</span> Medical record keeping</label>
+          </div>
+        </fieldset>
+
+        <fieldset class="question" data-correct="B">
+          <legend class="q-title">5) How does Pepper the robot recognize human emotions?</legend>
+          <div class="options">
+            <label class="option"><input type="radio" name="q5" value="A"><span class="badge">A</span> By reading minds</label>
+            <label class="option"><input type="radio" name="q5" value="B"><span class="badge">B</span> Through facial expressions and voice tones</label>
+            <label class="option"><input type="radio" name="q5" value="C"><span class="badge">C</span> By analyzing blood samples</label>
+            <label class="option"><input type="radio" name="q5" value="D"><span class="badge">D</span> Using temperature sensors</label>
+          </div>
+        </fieldset>
+
+        <fieldset class="question" data-correct="D">
+          <legend class="q-title">6) What was Thomas Edison's famous attitude toward failure?</legend>
+          <div class="options">
+            <label class="option"><input type="radio" name="q6" value="A"><span class="badge">A</span> He gave up easily</label>
+            <label class="option"><input type="radio" name="q6" value="B"><span class="badge">B</span> He blamed his team</label>
+            <label class="option"><input type="radio" name="q6" value="C"><span class="badge">C</span> He considered it a waste of time</label>
+            <label class="option"><input type="radio" name="q6" value="D"><span class="badge">D</span> He saw it as finding ways that don't work</label>
+          </div>
+        </fieldset>
+
+        <!-- Synonym Questions -->
+        <h3 style="color: var(--primary); margin: 32px 0 16px 0;">Find the Synonym</h3>
+
+        <fieldset class="question" data-correct="B">
+          <legend class="q-title">7) Find the synonym for "microscopic":</legend>
+          <div class="options">
+            <label class="option"><input type="radio" name="q7" value="A"><span class="badge">A</span> Huge</label>
+            <label class="option"><input type="radio" name="q7" value="B"><span class="badge">B</span> Tiny</label>
+            <label class="option"><input type="radio" name="q7" value="C"><span class="badge">C</span> Visible</label>
+            <label class="option"><input type="radio" name="q7" value="D"><span class="badge">D</span> Simple</label>
+          </div>
+        </fieldset>
+
+        <fieldset class="question" data-correct="C">
+          <legend class="q-title">8) Find the synonym for "perseverance":</legend>
+          <div class="options">
+            <label class="option"><input type="radio" name="q8" value="A"><span class="badge">A</span> Laziness</label>
+            <label class="option"><input type="radio" name="q8" value="B"><span class="badge">B</span> Luck</label>
+            <label class="option"><input type="radio" name="q8" value="C"><span class="badge">C</span> Persistence</label>
+            <label class="option"><input type="radio" name="q8" value="D"><span class="badge">D</span> Intelligence</label>
+          </div>
+        </fieldset>
+
+        <fieldset class="question" data-correct="A">
+          <legend class="q-title">9) Find the synonym for "hazardous":</legend>
+          <div class="options">
+            <label class="option"><input type="radio" name="q9" value="A"><span class="badge">A</span> Dangerous</label>
+            <label class="option"><input type="radio" name="q9" value="B"><span class="badge">B</span> Safe</label>
+            <label class="option"><input type="radio" name="q9" value="C"><span class="badge">C</span> Comfortable</label>
+            <label class="option"><input type="radio" name="q9" value="D"><span class="badge">D</span> Ordinary</label>
+          </div>
+        </fieldset>
+
+        <div class="actions">
+          <button class="btn" data-action="check" type="button">Check Results</button>
+          <button class="btn secondary" data-action="reset" type="button">Reset</button>
+        </div>
+
+        <div class="result"></div>
+      </form>
+    </div>
+  </div>
+
+  <script src="assets/app.js"></script>
+  <script src="assets/auth.js"></script>
+  <script src="assets/quiz.js"></script>
+</body>
+</html>

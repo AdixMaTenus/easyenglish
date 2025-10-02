@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>EasyEnglish — Module 6 Reading</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <span class="logo">📚</span>
+        <span class="brand-name">EasyEnglish</span>
+      </div>
+      
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="module6.html">Module 6</a>
+        <a href="module6-reading.html" class="active">Reading</a>
+        <a href="module6-grammar.html">Grammar</a>
+        <a href="results.html">My Results</a>
+      </div>
+
+      <div class="nav-right">
+        <div class="lang-switch">
+          <button class="lang-btn" data-lang="kk" onclick="setLang('kk')" aria-label="Қазақ тілі">KZ</button>
+          <button class="lang-btn" data-lang="ru" onclick="setLang('ru')" aria-label="Русский">RU</button>
+          <button class="lang-btn" data-lang="en" onclick="setLang('en')" aria-label="English">EN</button>
+        </div>
+
+        <div class="auth-section">
+          <button id="loginBtn" class="btn-login">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor">
+              <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z" fill="#4285F4"/>
+              <path d="M9.003 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.96v2.332C2.44 15.983 5.485 18 9.003 18z" fill="#34A853"/>
+              <path d="M3.964 10.712c-.18-.54-.282-1.117-.282-1.71 0-.593.102-1.17.282-1.71V4.96H.957C.347 6.175 0 7.55 0 9.002c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/>
+              <path d="M9.003 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.464.891 11.426 0 9.003 0 5.485 0 2.44 2.017.96 4.96L3.967 7.29c.708-2.127 2.692-3.71 5.036-3.71z" fill="#EA4335"/>
+            </svg>
+            Google
+          </button>
+          
+          <div id="userProfile" class="user-profile">
+            <img id="userPhoto" class="avatar" alt="User" />
+            <span id="userName"></span>
+            <button class="btn-logout" onclick="logout()">Logout</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <div class="card">
+      <div class="lesson-header">
+        <div class="lesson-icon-large">📖</div>
+        <h2>Module 6: Reading Texts</h2>
+        <p class="lead">Read the texts about human brain and complete the exercises</p>
+      </div>
+
+      <!-- Text 1: Human Brain -->
+      <div class="section textblock">
+        <h3 style="color: var(--primary); margin-bottom: 16px;">The Human Brain</h3>
+        <p>The human brain is one of the most complex and fascinating organs in our body. It weighs about 1.4 kilograms and contains approximately 86 billion neurons. The brain is responsible for controlling our thoughts, memory, emotions, touch, motor skills, vision, breathing, temperature, and every process that regulates our body.</p>
+        <p>The brain is divided into several parts, each with specific functions. The cerebrum, the largest part, controls voluntary actions like thinking and learning. The cerebellum helps with coordination and balance, while the brainstem manages automatic functions such as breathing and heart rate.</p>
+        <p>Neuroplasticity is the brain's ability to change and adapt throughout life. This means we can learn new things and form new connections between neurons at any age. Proper nutrition, exercise, and mental challenges help keep our brain healthy and active.</p>
+      </div>
+
+      <!-- Text 2: Stress and Stress Symptoms -->
+      <div class="section textblock">
+        <h3 style="color: var(--primary); margin-bottom: 16px;">Stress and Stress Symptoms</h3>
+        <p>Stress is the body's natural response to challenges or demands. While short-term stress can be helpful in dangerous situations, chronic stress can have negative effects on both physical and mental health.</p>
+        <p>Common physical symptoms of stress include headaches, muscle tension, fatigue, and sleep problems. Emotional symptoms may involve anxiety, irritability, depression, and difficulty concentrating. Behavioral changes like overeating or undereating, social withdrawal, and increased use of alcohol or drugs can also indicate stress.</p>
+        <p>Managing stress is crucial for overall well-being. Effective strategies include regular exercise, relaxation techniques like meditation, maintaining social connections, and ensuring adequate sleep. Recognizing stress symptoms early helps in taking appropriate action to reduce their impact.</p>
+      </div>
+
+      <!-- Text 3: IQ -->
+      <div class="section textblock">
+        <h3 style="color: var(--primary); margin-bottom: 16px;">IQ (Intelligence Quotient)</h3>
+        <p>IQ, or Intelligence Quotient, is a measure of a person's cognitive abilities compared to others in their age group. The concept was developed in the early 20th century by psychologists Alfred Binet and Theodore Simon to identify students who needed educational assistance.</p>
+        <p>Modern IQ tests assess various mental capabilities including logical reasoning, problem-solving, mathematical ability, spatial recognition, and language comprehension. An average IQ score is set at 100, with about 68% of the population scoring between 85 and 115.</p>
+        <p>It's important to understand that IQ tests measure only certain types of intelligence and don't account for creativity, emotional intelligence, practical skills, or wisdom. Many experts believe that intelligence is multifaceted and cannot be fully captured by a single number.</p>
+      </div>
+
+      <!-- Text 4: Memorising and How to Train Your Brain -->
+      <div class="section textblock">
+        <h3 style="color: var(--primary); margin-bottom: 16px;">Memorising and How to Train Your Brain</h3>
+        <p>Memory is the brain's ability to store and retrieve information. There are different types of memory: short-term memory holds information temporarily, while long-term memory stores information for extended periods. Working memory helps us manipulate and use information in real-time.</p>
+        <p>Effective memory techniques include association (connecting new information to existing knowledge), visualization (creating mental images), chunking (breaking information into smaller units), and repetition. The spacing effect suggests that spreading study sessions over time improves long-term retention.</p>
+        <p>Brain training activities like learning new languages, playing musical instruments, solving puzzles, and reading challenging material can enhance cognitive function. Physical exercise, proper sleep, and a healthy diet also support memory and overall brain health. Consistent mental stimulation helps maintain cognitive abilities as we age.</p>
+      </div>
+
+      <!-- Quiz Section -->
+      <form class="quiz section" data-lesson-id="module6-reading">
+        
+        <!-- True/False Questions -->
+        <h3 style="color: var(--primary); margin: 32px 0 16px 0;">True/False Questions</h3>
+
+        <!-- Q1 True/False -->
+        <fieldset class="question" data-correct="A">
+          <legend class="q-title">1) The human brain contains about 86 billion neurons.</legend>
+          <div class="options">
+            <label class="option"><input type="radio" name="q1" value="A"><span class="badge">A</span> True</label>
+            <label class="option"><input type="radio" name="q1" value="B"><span class="badge">B</span> False</label>
+          </div>
+        </fieldset>
+
+        <!-- Q2 True/False -->
+        <fieldset class="question" data-correct="B">
+          <legend class="q-title">2) Chronic stress has only positive effects on health.</legend>
+          <div class="options">
+            <label class="option"><input type="radio" name="q2" value="A"><span class="badge">A</span> True</label>
+            <label class="option"><input type="radio" name="q2" value="B"><span class="badge">B</span> False</label>
+          </div>
+        </fieldset>
+
+        <!-- Q3 True/False -->
+        <fieldset class="question" data-correct="A">
+          <legend class="q-title">3) Neuroplasticity allows the brain to change throughout life.</legend>
+          <div class="options">
+            <label class="option"><input type="radio" name="q3" value="A"><span class="badge">A</span> True</label>
+            <label class="option"><input type="radio" name="q3" value="B"><span class="badge">B</span> False</label>
+          </div>
+        </fieldset>
+
+        <!-- Multiple Choice Questions -->
+        <h3 style="color: var(--primary); margin: 32px 0 16px 0;">Multiple Choice Questions</h3>
+
+        <!-- Q4 Multiple Choice -->
+        <fieldset class="question" data-correct="C">
+          <legend class="q-title">4) What is the average IQ score?</legend>
+          <div class="options">
+            <label class="option"><input type="radio" name="q4" value="A"><span class="badge">A</span> 85</label>
+            <label class="option"><input type="radio" name="q4" value="B"><span class="badge">B</span> 115</label>
+            <label class="option"><input type="radio" name="q4" value="C"><span class="badge">C</span> 100</label>
+            <label class="option"><input type="radio" name="q4" value="D"><span class="badge">D</span> 130</label>
+          </div>
+        </fieldset>
+
+        <!-- Q5 Multiple Choice -->
+        <fieldset class="question" data-correct="B">
+          <legend class="q-title">5) Which part of the brain controls voluntary actions like thinking?</legend>
+          <div class="options">
+            <label class="option"><input type="radio" name="q5" value="A"><span class="badge">A</span> Cerebellum</label>
+            <label class="option"><input type="radio" name="q5" value="B"><span class="badge">B</span> Cerebrum</label>
+            <label class="option"><input type="radio" name="q5" value="C"><span class="badge">C</span> Brainstem</label>
+            <label class="option"><input type="radio" name="q5" value="D"><span class="badge">D</span> Hippocampus</label>
+          </div>
+        </fieldset>
+
+        <!-- Q6 Multiple Choice -->
+        <fieldset class="question" data-correct="D">
+          <legend class="q-title">6) What technique involves breaking information into smaller units?</legend>
+          <div class="options">
+            <label class="option"><input type="radio" name="q6" value="A"><span class="badge">A</span> Association</label>
+            <label class="option"><input type="radio" name="q6" value="B"><span class="badge">B</span> Visualization</label>
+            <label class="option"><input type="radio" name="q6" value="C"><span class="badge">C</span> Repetition</label>
+            <label class="option"><input type="radio" name="q6" value="D"><span class="badge">D</span> Chunking</label>
+          </div>
+        </fieldset>
+
+        <!-- Synonym Questions -->
+        <h3 style="color: var(--primary); margin: 32px 0 16px 0;">Find the Synonym</h3>
+
+        <!-- Q7 Synonym -->
+        <fieldset class="question" data-correct="B">
+          <legend class="q-title">7) Find the synonym for "complex":</legend>
+          <div class="options">
+            <label class="option"><input type="radio" name="q7" value="A"><span class="badge">A</span> Simple</label>
+            <label class="option"><input type="radio" name="q7" value="B"><span class="badge">B</span> Complicated</label>
+            <label class="option"><input type="radio" name="q7" value="C"><span class="badge">C</span> Small</label>
+            <label class="option"><input type="radio" name="q7" value="D"><span class="badge">D</span> Old</label>
+          </div>
+        </fieldset>
+
+        <!-- Q8 Synonym -->
+        <fieldset class="question" data-correct="C">
+          <legend class="q-title">8) Find the synonym for "chronic":</legend>
+          <div class="options">
+            <label class="option"><input type="radio" name="q8" value="A"><span class="badge">A</span> Temporary</label>
+            <label class="option"><input type="radio" name="q8" value="B"><span class="badge">B</span> Mild</label>
+            <label class="option"><input type="radio" name="q8" value="C"><span class="badge">C</span> Persistent</label>
+            <label class="option"><input type="radio" name="q8" value="D"><span class="badge">D</span> Healthy</label>
+          </div>
+        </fieldset>
+
+        <!-- Q9 Synonym -->
+        <fieldset class="question" data-correct="A">
+          <legend class="q-title">9) Find the synonym for "retrieve":</legend>
+          <div class="options">
+            <label class="option"><input type="radio" name="q9" value="A"><span class="badge">A</span> Recall</label>
+            <label class="option"><input type="radio" name="q9" value="B"><span class="badge">B</span> Forget</label>
+            <label class="option"><input type="radio" name="q9" value="C"><span class="badge">C</span> Learn</label>
+            <label class="option"><input type="radio" name="q9" value="D"><span class="badge">D</span> Store</label>
+          </div>
+        </fieldset>
+
+        <div class="actions">
+          <button class="btn" data-action="check" type="button">Check Results</button>
+          <button class="btn secondary" data-action="reset" type="button">Reset</button>
+        </div>
+
+        <div class="result"></div>
+      </form>
+    </div>
+  </div>
+
+  <script src="assets/app.js"></script>
+  <script src="assets/auth.js"></script>
+  <script src="assets/quiz.js"></script>
+</body>
+</html>

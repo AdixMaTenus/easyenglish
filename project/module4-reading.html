@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>EasyEnglish — Module 4 Reading</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <span class="logo">📚</span>
+        <span class="brand-name">EasyEnglish</span>
+      </div>
+      
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="module4.html">Module 4</a>
+        <a href="module4-reading.html" class="active">Reading</a>
+        <a href="module4-grammar.html">Grammar</a>
+        <a href="results.html">My Results</a>
+      </div>
+
+      <div class="nav-right">
+        <div class="lang-switch">
+          <button class="lang-btn" data-lang="kk" onclick="setLang('kk')" aria-label="Қазақ тілі">KZ</button>
+          <button class="lang-btn" data-lang="ru" onclick="setLang('ru')" aria-label="Русский">RU</button>
+          <button class="lang-btn" data-lang="en" onclick="setLang('en')" aria-label="English">EN</button>
+        </div>
+
+        <div class="auth-section">
+          <button id="loginBtn" class="btn-login">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor">
+              <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z" fill="#4285F4"/>
+              <path d="M9.003 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.96v2.332C2.44 15.983 5.485 18 9.003 18z" fill="#34A853"/>
+              <path d="M3.964 10.712c-.18-.54-.282-1.117-.282-1.71 0-.593.102-1.17.282-1.71V4.96H.957C.347 6.175 0 7.55 0 9.002c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/>
+              <path d="M9.003 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.464.891 11.426 0 9.003 0 5.485 0 2.44 2.017.96 4.96L3.967 7.29c.708-2.127 2.692-3.71 5.036-3.71z" fill="#EA4335"/>
+            </svg>
+            Google
+          </button>
+          
+          <div id="userProfile" class="user-profile">
+            <img id="userPhoto" class="avatar" alt="User" />
+            <span id="userName"></span>
+            <button class="btn-logout" onclick="logout()">Logout</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <div class="card">
+      <div class="lesson-header">
+        <div class="lesson-icon-large">📖</div>
+        <h2>Module 4: Reading Texts</h2>
+        <p class="lead">Read the texts about universe theories and life science</p>
+      </div>
+
+      <!-- Text 1: The Big Bang Theory -->
+      <div class="section textblock">
+        <h3 style="color: var(--primary); margin-bottom: 16px;">The Big Bang Theory: The Beginning of Everything</h3>
+        <p>The Big Bang Theory is the prevailing cosmological model that explains the origin and evolution of the universe. According to this theory, the universe began approximately 13.8 billion years ago from an extremely hot, dense state and has been expanding and cooling ever since. This initial singularity contained all the matter and energy that would eventually form galaxies, stars, planets, and life itself.</p>
+        <p>Key evidence supporting the Big Bang Theory includes the observed expansion of the universe (Hubble's Law), the cosmic microwave background radiation (relic heat from the early universe), and the abundance of light elements like hydrogen and helium. As the universe expanded, it cooled sufficiently for subatomic particles to form, then simple atoms, and eventually the first stars and galaxies began to take shape about 400 million years after the Big Bang.</p>
+        <p>While the Big Bang Theory successfully explains many observed phenomena, several questions remain unanswered, such as what caused the initial expansion and what existed before the Big Bang. Ongoing research in particle physics and cosmology continues to refine our understanding of the universe's earliest moments.</p>
+      </div>
+
+      <!-- Text 2: The Cyclical Universe Theory -->
+      <div class="section textblock">
+        <h3 style="color: var(--primary); margin-bottom: 16px;">The Cyclical Universe Theory: Endless Cycles of Creation</h3>
+        <p>The Cyclical Universe Theory proposes that the universe undergoes endless cycles of expansion and contraction, with each "Big Bang" followed eventually by a "Big Crunch" that leads to the next cosmic cycle. This concept, also known as the oscillating universe model, suggests that our current expanding universe will eventually reverse its expansion due to gravitational attraction and collapse back into a hot, dense state.</p>
+        <p>Proponents of cyclical models point to certain mathematical solutions in general relativity that allow for such behavior and suggest that dark energy—the mysterious force driving accelerated expansion—might eventually weaken or reverse. Some versions of string theory also support the possibility of cyclical universes, with each cycle potentially having slightly different physical constants and laws.</p>
+        <p>While the cyclical model offers an elegant solution to the question of what preceded the Big Bang, current observational evidence strongly favors continuous expansion rather than eventual contraction. The measured acceleration of cosmic expansion makes a future "Big Crunch" increasingly unlikely according to standard cosmological models.</p>
+      </div>
+
+      <!-- Text 3: The Multiple Universe Theory -->
+      <div class="section textblock">
+        <h3 style="color: var(--primary); margin-bottom: 16px;">The Multiple Universe Theory: A Multiverse of Possibilities</h3>
+        <p>The Multiple Universe Theory, or multiverse theory, suggests that our universe may be just one of countless universes that exist parallel to each other. This concept emerges from several areas of theoretical physics, including inflationary cosmology, string theory, and quantum mechanics. Different types of multiverses have been proposed, each with distinct characteristics and theoretical foundations.</p>
+        <p>In the inflationary multiverse concept, rapid expansion in the early universe created "bubble universes" with potentially different physical laws and constants. The quantum multiverse interpretation suggests that every quantum measurement causes the universe to split into multiple branches, each representing a different outcome. String theory proposes a vast "landscape" of possible universes with different physical parameters, of which our universe is just one realization.</p>
+        <p>While the multiverse remains a speculative concept that cannot be directly tested with current technology, it provides potential explanations for several puzzling aspects of our universe, such as why physical constants appear finely tuned for life. The concept continues to stimulate important discussions in theoretical physics and philosophy about the nature of reality and our place in the cosmos.</p>
+      </div>
+
+      <!-- Text 4: Can We Put an End to Aging? -->
+      <div class="section textblock">
+        <h3 style="color: var(--primary); margin-bottom: 16px;">Can We Put an End to Aging?</h3>
+        <p>Aging research has advanced significantly in recent decades, moving from science fiction to serious scientific investigation. Scientists now understand aging as a complex biological process influenced by genetic, environmental, and lifestyle factors. Key mechanisms include telomere shortening, cellular senescence, DNA damage accumulation, and metabolic changes.</p>
+        <p>Several promising approaches to延缓 aging are being explored. Telomerase activation aims to maintain telomere length and cellular youthfulness. Senolytics are drugs that selectively清除 senescent (aging) cells. Caloric restriction and intermittent fasting have shown lifespan-extending effects in various organisms. Genetic interventions targeting aging-related pathways like mTOR and AMPK are also under investigation.</p>
+        <p>While complete elimination of aging remains speculative, significant extension of healthspan—the period of life spent in good health—appears increasingly achievable. Research focuses not just on living longer but on maintaining vitality and cognitive function into advanced age. Ethical considerations about resource distribution, population impacts, and the natural life course accompany these scientific advances.</p>
+      </div>
+
+      <!-- Text 5: Surprising Facts About Oxygen -->
+      <div class="section textblock">
+        <h3 style="color: var(--primary); margin-bottom: 16px;">Surprising Facts About Oxygen</h3>
+        <p>Oxygen, the third most abundant element in the universe, is essential for life as we know it, yet it possesses many surprising characteristics beyond its role in respiration. Although oxygen makes up about 21% of Earth's atmosphere and 65% of the human body by mass, early Earth had virtually no atmospheric oxygen until approximately 2.4 billion years ago during the Great Oxidation Event.</p>
+        <p>Despite being crucial for aerobic life, oxygen is actually toxic at high concentrations. Oxygen toxicity can damage cells through the production of reactive oxygen species (free radicals). This paradoxical nature explains why life developed sophisticated antioxidant systems to manage oxygen's destructive potential while harnessing its energy-producing capabilities.</p>
+        <p>Oxygen exhibits unusual chemical behavior as the only common elemental gas that is paramagnetic (weakly attracted to magnetic fields). Liquid and solid oxygen are pale blue colors—a rare hue among elemental substances. In space, oxygen molecules have been detected in Martian soil, comets, and distant galaxies, suggesting its universal importance for chemistry and potential life throughout the cosmos.</p>
+      </div>
+
+      <!-- Quiz Section - More Questions -->
+      <form class="quiz section" data-lesson-id="module4-reading">
+        
+        <!-- True/False Questions -->
+        <h3 style="color: var(--primary); margin: 32px 0 16px 0;">True/False Questions</h3>
+
+        <fieldset class="question" data-correct="A">
+          <legend class="q-title">1) The Big Bang Theory suggests the universe began from an extremely hot, dense state.</legend>
+          <div class="options">
+            <label class="option"><input type="radio" name="q1" value="A"><span class="badge">A</span> True</label>
+            <label class="option"><input type="radio" name="q1" value="B"><span class="badge">B</span> False</label>
+          </div>
+        </fieldset>
+
+        <fieldset class="question" data-correct="B">
+          <legend class="q-title">2) The Cyclical Universe Theory proposes that the universe will expand forever without contraction.</legend>
+          <div class="options">
+            <label class="option"><input type="radio" name="q2" value="A"><span class="badge">A</span> True</label>
+            <label class="option"><input type="radio" name="q2" value="B"><span class="badge">B</span> False</label>
+          </div>
+        </fieldset>
+
+        <fieldset class="question" data-correct="A">
+          <legend class="q-title">3) Early Earth had virtually no atmospheric oxygen until about 2.4 billion years ago.</legend>
+          <div class="options">
+            <label class="option"><input type="radio" name="q3" value="A"><span class="badge">A</span> True</label>
+            <label class="option"><input type="radio" name="q3" value="B"><span class="badge">B</span> False</label>
+          </div>
+        </fieldset>
+
+        <fieldset class="question" data-correct="B">
+          <legend class="q-title">4) Oxygen is completely harmless to living organisms at any concentration.</legend>
+          <div class="options">
+            <label class="option"><input type="radio" name="q4" value="A"><span class="badge">A</span> True</label>
+            <label class="option"><input type="radio" name="q4" value="B"><span class="badge">B</span> False</label>
+          </div>
+        </fieldset>
+
+        <!-- Multiple Choice Questions -->
+        <h3 style="color: var(--primary); margin: 32px 0 16px 0;">Multiple Choice Questions</h3>
+
+        <fieldset class="question" data-correct="C">
+          <legend class="q-title">5) Approximately how old is the universe according to the Big Bang Theory?</legend>
+          <div class="options">
+            <label class="option"><input type="radio" name="q5" value="A"><span class="badge">A</span> 4.5 billion years</label>
+            <label class="option"><input type="radio" name="q5" value="B"><span class="badge">B</span> 10 billion years</label>
+            <label class="option"><input type="radio" name="q5" value="C"><span class="badge">C</span> 13.8 billion years</label>
+            <label class="option"><input type="radio" name="q5" value="D"><span class="badge">D</span> 20 billion years</label>
+          </div>
+        </fieldset>
+
+        <fieldset class="question" data-correct="B">
+          <legend class="q-title">6) What is the main evidence for the Big Bang Theory?</legend>
+          <div class="options">
+            <label class="option"><input type="radio" name="q6" value="A"><span class="badge">A</span> Fossil records</label>
+            <label class="option"><input type="radio" name="q6" value="B"><span class="badge">B</span> Cosmic microwave background radiation</label>
+            <label class="option"><input type="radio" name="q6" value="C"><span class="badge">C</span> Ocean currents</label>
+            <label class="option"><input type="radio" name="q6" value="D"><span class="badge">D</span> Volcanic activity</label>
+          </div>
+        </fieldset>
+
+        <fieldset class="question" data-correct="D">
+          <legend class="q-title">7) Which theory suggests our universe is just one of many parallel universes?</legend>
+          <div class="options">
+            <label class="option"><input type="radio" name="q7" value="A"><span class="badge">A</span> Big Bang Theory</label>
+            <label class="option"><input type="radio" name="q7" value="B"><span class="badge">B</span> Cyclical Universe Theory</label>
+            <label class="option"><input type="radio" name="q7" value="C"><span class="badge">C</span> Steady State Theory</label>
+            <label class="option"><input type="radio" name="q7" value="D"><span class="badge">D</span> Multiple Universe Theory</label>
+          </div>
+        </fieldset>
+
+        <fieldset class="question" data-correct="A">
+          <legend class="q-title">8) What are senolytics?</legend>
+          <div class="options">
+            <label class="option"><input type="radio" name="q8" value="A"><span class="badge">A</span> Drugs that清除 aging cells</label>
+            <label class="option"><input type="radio" name="q8" value="B"><span class="badge">B</span> Oxygen-carrying molecules</label>
+            <label class="option"><input type="radio" name="q8" value="C"><span class="badge">C</span> Universe-expanding forces</label>
+            <label class="option"><input type="radio" name="q8" value="D"><span class="badge">D</span> Types of galaxies</label>
+          </div>
+        </fieldset>
+
+        <fieldset class="question" data-correct="C">
+          <legend class="q-title">9) What percentage of Earth's atmosphere is oxygen?</legend>
+          <div class="options">
+            <label class="option"><input type="radio" name="q9" value="A"><span class="badge">A</span> 10%</label>
+            <label class="option"><input type="radio" name="q9" value="B"><span class="badge">B</span> 15%</label>
+            <label class="option"><input type="radio" name="q9" value="C"><span class="badge">C</span> 21%</label>
+            <label class="option"><input type="radio" name="q9" value="D"><span class="badge">D</span> 30%</label>
+          </div>
+        </fieldset>
+
+        <!-- Synonym Questions -->
+        <h3 style="color: var(--primary); margin: 32px 0 16px 0;">Find the Synonym</h3>
+
+        <fieldset class="question" data-correct="B">
+          <legend class="q-title">10) Find the synonym for "prevailing":</legend>
+          <div class="options">
+            <label class="option"><input type="radio" name="q10" value="A"><span class="badge">A</span> Unpopular</label>
+            <label class="option"><input type="radio" name="q10" value="B"><span class="badge">B</span> Dominant</label>
+            <label class="option"><input type="radio" name="q10" value="C"><span class="badge">C</span> Ancient</label>
+            <label class="option"><input type="radio" name="q10" value="D"><span class="badge">D</span> Simple</label>
+          </div>
+        </fieldset>
+
+        <fieldset class="question" data-correct="C">
+          <legend class="q-title">11) Find the synonym for "speculative":</legend>
+          <div class="options">
+            <label class="option"><input type="radio" name="q11" value="A"><span class="badge">A</span> Proven</label>
+            <label class="option"><input type="radio" name="q11" value="B"><span class="badge">B</span> Simple</label>
+            <label class="option"><input type="radio" name="q11" value="C"><span class="badge">C</span> Theoretical</label>
+            <label class="option"><input type="radio" name="q11" value="D"><span class="badge">D</span> Ancient</label>
+          </div>
+        </fieldset>
+
+        <fieldset class="question" data-correct="A">
+          <legend class="q-title">12) Find the synonym for "essential":</legend>
+          <div class="options">
+            <label class="option"><input type="radio" name="q12" value="A"><span class="badge">A</span> Crucial</label>
+            <label class="option"><input type="radio" name="q12" value="B"><span class="badge">B</span> Optional</label>
+            <label class="option"><input type="radio" name="q12" value="C"><span class="badge">C</span> Harmful</label>
+            <label class="option"><input type="radio" name="q12" value="D"><span class="badge">D</span> Rare</label>
+          </div>
+        </fieldset>
+
+        <!-- Vocabulary Matching -->
+        <h3 style="color: var(--primary); margin: 32px 0 16px 0;">Vocabulary Matching</h3>
+
+        <fieldset class="question" data-correct="B">
+          <legend class="q-title">13) Match the term with its definition: "Cosmology"</legend>
+          <div class="options">
+            <label class="option"><input type="radio" name="q13" value="A"><span class="badge">A</span> Study of ancient civilizations</label>
+            <label class="option"><input type="radio" name="q13" value="B"><span class="badge">B</span> Study of the origin and evolution of the universe</label>
+            <label class="option"><input type="radio" name="q13" value="C"><span class="badge">C</span> Study of plant life</label>
+            <label class="option"><input type="radio" name="q13" value="D"><span class="badge">D</span> Study of ocean currents</label>
+          </div>
+        </fieldset>
+
+        <fieldset class="question" data-correct="C">
+          <legend class="q-title">14) Match the term with its definition: "Multiverse"</legend>
+          <div class="options">
+            <label class="option"><input type="radio" name="q14" value="A"><span class="badge">A</span> A single expanding universe</label>
+            <label class="option"><input type="radio" name="q14" value="B"><span class="badge">B</span> A theory about Earth's formation</label>
+            <label class="option"><input type="radio" name="q14" value="C"><span class="badge">C</span> The hypothetical set of multiple possible universes</label>
+            <label class="option"><input type="radio" name="q14" value="D"><span class="badge">D</span> A type of galaxy</label>
+          </div>
+        </fieldset>
+
+        <fieldset class="question" data-correct="D">
+          <legend class="q-title">15) Match the term with its definition: "Senescence"</legend>
+          <div class="options">
+            <label class="option"><input type="radio" name="q15" value="A"><span class="badge">A</span> The process of cell division</label>
+            <label class="option"><input type="radio" name="q15" value="B"><span class="badge">B</span> Oxygen production in plants</label>
+            <label class="option"><input type="radio" name="q15" value="C"><span class="badge">C</span> Universe expansion</label>
+            <label class="option"><input type="radio" name="q15" value="D"><span class="badge">D</span> The process of biological aging</label>
+          </div>
+        </fieldset>
+
+        <div class="actions">
+          <button class="btn" data-action="check" type="button">Check Results</button>
+          <button class="btn secondary" data-action="reset" type="button">Reset</button>
+        </div>
+
+        <div class="result"></div>
+      </form>
+    </div>
+  </div>
+
+  <script src="assets/app.js"></script>
+  <script src="assets/auth.js"></script>
+  <script src="assets/quiz.js"></script>
+</body>
+</html>

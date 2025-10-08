@@ -91,7 +91,7 @@ const translations = {
     footer_features: "Мүмкіндіктер",
     footer_contact: "Бізбен байланысу",
     footer_faq: "FAQ",
-    footer_copyright: "© 2024 EasyEnglish. Барлық құқықтар қорғалған. | Мектеп жобасы",
+    footer_copyright: "© 2025 EasyEnglish. Барлық құқықтар қорғалған. | Abai мектебінің 11 \"K\" сыныбының оқушысы Икрам Әлдиярханның мектеп жобасы",
     footer_meta: "Қазақ, орыс және ағылшын тілдерінде қолжетімді",
     module1_short: "Модуль 1",
     module2_short: "Модуль 2",
@@ -150,7 +150,8 @@ const translations = {
     
     // Hero Section
     hero_badge: "🚀 Интерактивное изучение английского",
-    hero_title: "Освойте английский через <span class='highlight'>Увлекательный контент</span>",
+    hero_title_part1: "Освойте английский через",
+    hero_title_part2: "Увлекательный контент",
     hero_description: "EasyEnglish трансформирует изучение языка с интерактивными модулями, реальными темами и персональным отслеживанием прогресса. Погрузитесь в увлекательные темы, улучшая навыки английского.",
     hero_explore: "Изучить модули",
     hero_how_it_works: "Как это работает",
@@ -288,7 +289,8 @@ const translations = {
     
     // Hero Section
     hero_badge: "🚀 Interactive English Learning",
-    hero_title: "Master English Through <span class='highlight'>Engaging Content</span>",
+    hero_title_part1: "Master English Through",
+    hero_title_part2: "Engaging Content",
     hero_description: "EasyEnglish transforms language learning with interactive modules, real-world topics, and personalized progress tracking. Dive into fascinating subjects while improving your English skills.",
     hero_explore: "Explore Modules",
     hero_how_it_works: "How It Works",

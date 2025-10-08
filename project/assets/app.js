@@ -91,7 +91,7 @@ const translations = {
     footer_features: "Мүмкіндіктер",
     footer_contact: "Бізбен байланысу",
     footer_faq: "FAQ",
-    footer_copyright: "© 2025 EasyEnglish. Барлық құқықтар қорғалған. | Abai мектебінің 11 \"K\" сыныбының оқушысы Икрам Әлдиярханның мектеп жобасы",
+    footer_copyright: "© 2025 EasyEnglish. Барлық құқықтар қорғалған. | Abai мектебінің 11 \"K\" сыныбының оқушысы Икрам Алдиярханның мектеп жобасы",
     footer_meta: "Қазақ, орыс және ағылшын тілдерінде қолжетімді",
     module1_short: "Модуль 1",
     module2_short: "Модуль 2",
@@ -369,7 +369,7 @@ const translations = {
     footer_features: "Features",
     footer_contact: "Contact Us",
     footer_faq: "FAQ",
-    footer_copyright: "© 2024 EasyEnglish. All rights reserved. | School Project",
+    footer_copyright: "© 2025 EasyEnglish. All rights reserved. | School Project made by a student of Abai School Ikram Aldiyarkhan 11 K",
     footer_meta: "Available in Kazakh, Russian, and English",
     module1_short: "Module 1",
     module2_short: "Module 2",
@@ -444,3 +444,4 @@ document.addEventListener("DOMContentLoaded", () => {
   const saved = localStorage.getItem("lang") || "kk";
   applyLang(saved);
 });
+

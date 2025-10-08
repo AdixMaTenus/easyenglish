@@ -230,7 +230,7 @@ const translations = {
     footer_features: "Возможности",
     footer_contact: "Свяжитесь с нами",
     footer_faq: "FAQ",
-    footer_copyright: "© 2024 EasyEnglish. Все права защищены. | Школьный проект",
+    footer_copyright: "© 2025 EasyEnglish. Все права защищены. | Школьный проект сделанный учеником школы им.Абая Икрам Алдиярхан 11 К",
     footer_meta: "Доступно на казахском, русском и английском",
     module1_short: "Модуль 1",
     module2_short: "Модуль 2",
@@ -444,4 +444,5 @@ document.addEventListener("DOMContentLoaded", () => {
   const saved = localStorage.getItem("lang") || "kk";
   applyLang(saved);
 });
+
 

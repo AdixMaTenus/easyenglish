@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>EasyEnglish — Module 4 Reading</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <span class="logo">📚</span>
+        <span class="brand-name">EasyEnglish</span>
+      </div>
+      
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="module4.html">Module 4</a>
+        <a href="module4-reading.html" class="active">Reading</a>
+        <a href="module4-grammar.html">Grammar</a>
+        <a href="results.html">My Results</a>
+      </div>
+
+      <div class="nav-right">
+        <div class="lang-switch">
+          <button class="lang-btn" data-lang="kk" onclick="setLang('kk')" aria-label="Қазақ тілі">KZ</button>
+          <button class="lang-btn" data-lang="ru" onclick="setLang('ru')" aria-label="Русский">RU</button>
+          <button class="lang-btn" data-lang="en" onclick="setLang('en')" aria-label="English">EN</button>
+        </div>
+
+        <div class="auth-section">
+          <button id="loginBtn" class="btn-login">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor">
+              <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z" fill="#4285F4"/>
+              <path d="M9.003 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.96v2.332C2.44 15.983 5.485 18 9.003 18z" fill="#34A853"/>
+              <path d="M3.964 10.712c-.18-.54-.282-1.117-.282-1.71 0-.593.102-1.17.282-1.71V4.96H.957C.347 6.175 0 7.55 0 9.002c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/>
+              <path d="M9.003 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.464.891 11.426 0 9.003 0 5.485 0 2.44 2.017.96 4.96L3.967 7.29c.708-2.127 2.692-3.71 5.036-3.71z" fill="#EA4335"/>
+            </svg>
+            Google
+          </button>
+          
+          <div id="userProfile" class="user-profile">
+            <img id="userPhoto" class="avatar" alt="User" />
+            <span id="userName"></span>
+            <button class="btn-logout" onclick="logout()">Logout</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <div class="card">
+      <div class="lesson-header">
+        <div class="lesson-icon-large">📖</div>
+        <h2>Module 4: Reading Texts</h2>
+        <p class="lead">Read the texts about universe theories and life science</p>
+      </div>
+
+      <!-- Text 1: The Big Bang Theory -->
+      <div class="section textblock">
+        <h3 style="color: var(--primary); margin-bottom: 16px;">The Big Bang Theory: The Beginning of Everything</h3>
+        <p>The Big Bang Theory is the prevailing cosmological model that explains the origin and evolution of the universe. According to this theory, the universe began approximately 13.8 billion years ago from an extremely hot, dense state and has been expanding and cooling ever since. This initial singularity contained all the matter and energy that would eventually form galaxies, stars, planets, and life itself.</p>
+        <p>Key evidence supporting the Big Bang Theory includes the observed expansion of the universe (Hubble's Law), the cosmic microwave background radiation (relic heat from the early universe), and the abundance of light elements like hydrogen and helium. As the universe expanded, it cooled sufficiently for subatomic particles to form, then simple atoms, and eventually the first stars and galaxies began to take shape about 400 million years after the Big Bang.</p>
+        <p>While the Big Bang Theory successfully explains many observed phenomena, several questions remain unanswered, such as what caused the initial expansion and what existed before the Big Bang. Ongoing research in particle physics and cosmology continues to refine our understanding of the universe's earliest moments.</p>
+      </div>
+
+      <!-- Tasks for Text 1 -->
+      <form class="quiz section" data-lesson-id="module4-reading-bigbang">
+        <h4 style="color: var(--primary); margin: 24px 0 16px 0;">Exercises: The Big Bang Theory</h4>
+
+        <!-- Task 1: Multiple Choice with Multiple Answers -->
+        <div class="task-group">
+          <h5 style="color: #6b7280; margin: 20px 0 12px 0;">Task 1: Multiple Choice Questions (Choose ALL correct answers)</h5>
+          
+          <fieldset class="question" data-correct="A,B,D">
+            <legend class="q-title">1) What evidence supports the Big Bang Theory? (Select all that apply)</legend>
+            <div class="options">
+              <label class="option"><input type="checkbox" name="q1" value="A"><span class="badge">A</span> Cosmic microwave background radiation</label>
+              <label class="option"><input type="checkbox" name="q1" value="B"><span class="badge">B</span> Universe expansion (Hubble's Law)</label>
+              <label class="option"><input type="checkbox" name="q1" value="C"><span class="badge">C</span> Fossil records</label>
+              <label class="option"><input type="checkbox" name="q1" value="D"><span class="badge">D</span> Abundance of light elements</label>
+              <label class="option"><input type="checkbox" name="q1" value="E"><span class="badge">E</span> Ocean currents</label>
+            </div>
+          </fieldset>
+
+          <fieldset class="question" data-correct="B,C,E">
+            <legend class="q-title">2) What formed as the universe expanded and cooled? (Select all that apply)</legend>
+            <div class="options">
+              <label class="option"><input type="checkbox" name="q2" value="A"><span class="badge">A</span> Complex life forms</label>
+              <label class="option"><input type="checkbox" name="q2" value="B"><span class="badge">B</span> Subatomic particles</label>
+              <label class="option"><input type="checkbox" name="q2" value="C"><span class="badge">C</span> Simple atoms</label>
+              <label class="option"><input type="checkbox" name="q2" value="D"><span class="badge">D</span> Modern technology</label>
+              <label class="option"><input type="checkbox" name="q2" value="E"><span class="badge">E</span> First stars and galaxies</label>
+            </div>
+          </fieldset>
+
+          <fieldset class="question" data-correct="A,C,D">
+            <legend class="q-title">3) What are current unanswered questions about the Big Bang? (Select all that apply)</legend>
+            <div class="options">
+              <label class="option"><input type="checkbox" name="q3" value="A"><span class="badge">A</span> What caused the initial expansion</label>
+              <label class="option"><input type="checkbox" name="q3" value="B"><span class="badge">B</span> How old the universe is</label>
+              <label class="option"><input type="checkbox" name="q3" value="C"><span class="badge">C</span> What existed before the Big Bang</label>
+              <label class="option"><input type="checkbox" name="q3" value="D"><span class="badge">D</span> Nature of the initial singularity</label>
+              <label class="option"><input type="checkbox" name="q3" value="E"><span class="badge">E</span> Whether galaxies exist</label>
+            </div>
+          </fieldset>
+        </div>
+
+        <!-- Task 2: True/False -->
+        <div class="task-group">
+          <h5 style="color: #6b7280; margin: 20px 0 12px 0;">Task 2: True/False Questions</h5>
+          
+          <fieldset class="question" data-correct="A">
+            <legend class="q-title">4) The Big Bang Theory suggests the universe began from an extremely hot, dense state.</legend>
+            <div class="options">
+              <label class="option"><input type="radio" name="q4" value="A"><span class="badge">A</span> True</label>
+              <label class="option"><input type="radio" name="q4" value="B"><span class="badge">B</span> False</label>
+            </div>
+          </fieldset>
+
+          <fieldset class="question" data-correct="B">
+            <legend class="q-title">5) The Big Bang Theory explains everything about the universe with no unanswered questions.</legend>
+            <div class="options">
+              <label class="option"><input type="radio" name="q5" value="A"><span class="badge">A</span> True</label>
+              <label class="option"><input type="radio" name="q5" value="B"><span class="badge">B</span> False</label>
+            </div>
+          </fieldset>
+        </div>
+
+        <!-- Task 3: Fill in the Blanks -->
+        <div class="task-group">
+          <h5 style="color: #6b7280; margin: 20px 0 12px 0;">Task 3: Fill in the Blanks</h5>
+          
+          <fieldset class="question" data-correct="C">
+            <legend class="q-title">6) Approximately how old is the universe according to the Big Bang Theory?</legend>
+            <div class="options">
+              <label class="option"><input type="radio" name="q6" value="A"><span class="badge">A</span> 4.5 billion years</label>
+              <label class="option"><input type="radio" name="q6" value="B"><span class="badge">B</span> 10 billion years</label>
+              <label class="option"><input type="radio" name="q6" value="C"><span class="badge">C</span> 13.8 billion years</label>
+              <label class="option"><input type="radio" name="q6" value="D"><span class="badge">D</span> 20 billion years</label>
+            </div>
+          </fieldset>
+
+          <fieldset class="question" data-correct="B">
+            <legend class="q-title">7) The first stars and galaxies began forming about ______ million years after the Big Bang.</legend>
+            <div class="options">
+              <label class="option"><input type="radio" name="q7" value="A"><span class="badge">A</span> 100</label>
+              <label class="option"><input type="radio" name="q7" value="B"><span class="badge">B</span> 400</label>
+              <label class="option"><input type="radio" name="q7" value="C"><span class="badge">C</span> 1000</label>
+              <label class="option"><input type="radio" name="q7" value="D"><span class="badge">D</span> 5000</label>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="actions">
+          <button class="btn" data-action="check" type="button">Check Results</button>
+          <button class="btn secondary" data-action="reset" type="button">Reset</button>
+        </div>
+
+        <div class="result"></div>
+      </form>
+
+      <!-- Text 2: The Cyclical Universe Theory -->
+      <div class="section textblock">
+        <h3 style="color: var(--primary); margin-bottom: 16px;">The Cyclical Universe Theory: Endless Cycles of Creation</h3>
+        <p>The Cyclical Universe Theory proposes that the universe undergoes endless cycles of expansion and contraction, with each "Big Bang" followed eventually by a "Big Crunch" that leads to the next cosmic cycle. This concept, also known as the oscillating universe model, suggests that our current expanding universe will eventually reverse its expansion due to gravitational attraction and collapse back into a hot, dense state.</p>
+        <p>Proponents of cyclical models point to certain mathematical solutions in general relativity that allow for such behavior and suggest that dark energy—the mysterious force driving accelerated expansion—might eventually weaken or reverse. Some versions of string theory also support the possibility of cyclical universes, with each cycle potentially having slightly different physical constants and laws.</p>
+        <p>While the cyclical model offers an elegant solution to the question of what preceded the Big Bang, current observational evidence strongly favors continuous expansion rather than eventual contraction. The measured acceleration of cosmic expansion makes a future "Big Crunch" increasingly unlikely according to standard cosmological models.</p>
+      </div>
+
+      <!-- Tasks for Text 2 -->
+      <form class="quiz section" data-lesson-id="module4-reading-cyclical">
+        <h4 style="color: var(--primary); margin: 24px 0 16px 0;">Exercises: The Cyclical Universe Theory</h4>
+
+        <!-- Task 1: Multiple Choice with Multiple Answers -->
+        <div class="task-group">
+          <h5 style="color: #6b7280; margin: 20px 0 12px 0;">Task 1: Multiple Choice Questions (Choose ALL correct answers)</h5>
+          
+          <fieldset class="question" data-correct="B,D,E">
+            <legend class="q-title">1) What characterizes the Cyclical Universe Theory? (Select all that apply)</legend>
+            <div class="options">
+              <label class="option"><input type="checkbox" name="q1" value="A"><span class="badge">A</span> Single creation event</label>
+              <label class="option"><input type="checkbox" name="q1" value="B"><span class="badge">B</span> Endless expansion/contraction cycles</label>
+              <label class="option"><input type="checkbox" name="q1" value="C"><span class="badge">C</span> Static universe</label>
+              <label class="option"><input type="checkbox" name="q1" value="D"><span class="badge">D</span> Big Bang followed by Big Crunch</label>
+              <label class="option"><input type="checkbox" name="q1" value="E"><span class="badge">E</span> Oscillating universe model</label>
+            </div>
+          </fieldset>
+
+          <fieldset class="question" data-correct="A,C,D">
+            <legend class="q-title">2) What theories support cyclical universe models? (Select all that apply)</legend>
+            <div class="options">
+              <label class="option"><input type="checkbox" name="q2" value="A"><span class="badge">A</span> General relativity solutions</label>
+              <label class="option"><input type="checkbox" name="q2" value="B"><span class="badge">B</span> Classical mechanics</label>
+              <label class="option"><input type="checkbox" name="q2" value="C"><span class="badge">C</span> String theory</label>
+              <label class="option"><input type="checkbox" name="q2" value="D"><span class="badge">D</span> Dark energy theories</label>
+              <label class="option"><input type="checkbox" name="q2" value="E"><span class="badge">E</span> Evolutionary biology</label>
+            </div>
+          </fieldset>
+
+          <fieldset class="question" data-correct="B,C,E">
+            <legend class="q-title">3) What does current evidence suggest about the cyclical model? (Select all that apply)</legend>
+            <div class="options">
+              <label class="option"><input type="checkbox" name="q3" value="A"><span class="badge">A</span> It is definitely correct</label>
+              <label class="option"><input type="checkbox" name="q3" value="B"><span class="badge">B</span> Continuous expansion is favored</label>
+              <label class="option"><input type="checkbox" name="q3" value="C"><span class="badge">C</span> Big Crunch is increasingly unlikely</label>
+              <label class="option"><input type="checkbox" name="q3" value="D"><span class="badge">D</span> It has been proven false</label>
+              <label class="option"><input type="checkbox" name="q3" value="E"><span class="badge">E</span> Acceleration makes contraction unlikely</label>
+            </div>
+          </fieldset>
+        </div>
+
+        <!-- Task 2: True/False -->
+        <div class="task-group">
+          <h5 style="color: #6b7280; margin: 20px 0 12px 0;">Task 2: True/False Questions</h5>
+          
+          <fieldset class="question" data-correct="B">
+            <legend class="q-title">4) The Cyclical Universe Theory proposes that the universe will expand forever without contraction.</legend>
+            <div class="options">
+              <label class="option"><input type="radio" name="q4" value="A"><span class="badge">A</span> True</label>
+              <label class="option"><input type="radio" name="q4" value="B"><span class="badge">B</span> False</label>
+            </div>
+          </fieldset>
+
+          <fieldset class="question" data-correct="A">
+            <legend class="q-title">5) Each cycle in the cyclical model could have different physical constants.</legend>
+            <div class="options">
+              <label class="option"><input type="radio" name="q5" value="A"><span class="badge">A</span> True</label>
+              <label class="option"><input type="radio" name="q5" value="B"><span class="badge">B</span> False</label>
+            </div>
+          </fieldset>
+        </div>
+
+        <!-- Task 3: Matching -->
+        <div class="task-group">
+          <h5 style="color: #6b7280; margin: 20px 0 12px 0;">Task 3: Matching Exercise</h5>
+          
+          <fieldset class="question" data-correct="C">
+            <legend class="q-title">6) Which theory suggests our universe is just one of many parallel universes?</legend>
+            <div class="options">
+              <label class="option"><input type="radio" name="q6" value="A"><span class="badge">A</span> Big Bang Theory</label>
+              <label class="option"><input type="radio" name="q6" value="B"><span class="badge">B</span> Cyclical Universe Theory</label>
+              <label class="option"><input type="radio" name="q6" value="C"><span class="badge">C</span> Multiple Universe Theory</label>
+              <label class="option"><input type="radio" name="q6" value="D"><span class="badge">D</span> Steady State Theory</label>
+            </div>
+          </fieldset>
+
+          <fieldset class="question" data-correct="B">
+            <legend class="q-title">7) Match the concept: Big Crunch</legend>
+            <div class="options">
+              <label class="option"><input type="radio" name="q7" value="A"><span class="badge">A</span> Initial expansion</label>
+              <label class="option"><input type="radio" name="q7" value="B"><span class="badge">B</span> Eventual contraction</label>
+              <label class="option"><input type="radio" name="q7" value="C"><span class="badge">C</span> Parallel universe</label>
+              <label class="option"><input type="radio" name="q7" value="D"><span class="badge">D</span> Dark matter</label>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="actions">
+          <button class="btn" data-action="check" type="button">Check Results</button>
+          <button class="btn secondary" data-action="reset" type="button">Reset</button>
+        </div>
+
+        <div class="result"></div>
+      </form>
+
+      <!-- Text 3: Can We Put an End to Aging? -->
+      <div class="section textblock">
+        <h3 style="color: var(--primary); margin-bottom: 16px;">Can We Put an End to Aging?</h3>
+        <p>Aging research has advanced significantly in recent decades, moving from science fiction to serious scientific investigation. Scientists now understand aging as a complex biological process influenced by genetic, environmental, and lifestyle factors. Key mechanisms include telomere shortening, cellular senescence, DNA damage accumulation, and metabolic changes.</p>
+        <p>Several promising approaches to stop aging are being explored. Telomerase activation aims to maintain telomere length and cellular youthfulness. Senolytics are drugs that selectively destroy senescent (aging) cells. Caloric restriction and intermittent fasting have shown lifespan-extending effects in various organisms. Genetic interventions targeting aging-related pathways like mTOR and AMPK are also under investigation.</p>
+        <p>While complete elimination of aging remains speculative, significant extension of healthspan—the period of life spent in good health—appears increasingly achievable. Research focuses not just on living longer but on maintaining vitality and cognitive function into advanced age. Ethical considerations about resource distribution, population impacts, and the natural life course accompany these scientific advances.</p>
+      </div>
+
+      <!-- Tasks for Text 3 -->
+      <form class="quiz section" data-lesson-id="module4-reading-aging">
+        <h4 style="color: var(--primary); margin: 24px 0 16px 0;">Exercises: Can We Put an End to Aging?</h4>
+
+        <!-- Task 1: Multiple Choice with Multiple Answers -->
+        <div class="task-group">
+          <h5 style="color: #6b7280; margin: 20px 0 12px 0;">Task 1: Multiple Choice Questions (Choose ALL correct answers)</h5>
+          
+          <fieldset class="question" data-correct="A,C,D">
+            <legend class="q-title">1) What are key mechanisms of aging mentioned? (Select all that apply)</legend>
+            <div class="options">
+              <label class="option"><input type="checkbox" name="q1" value="A"><span class="badge">A</span> Telomere shortening</label>
+              <label class="option"><input type="checkbox" name="q1" value="B"><span class="badge">B</span> Bone growth</label>
+              <label class="option"><input type="checkbox" name="q1" value="C"><span class="badge">C</span> Cellular senescence</label>
+              <label class="option"><input type="checkbox" name="q1" value="D"><span class="badge">D</span> DNA damage accumulation</label>
+              <label class="option"><input type="checkbox" name="q1" value="E"><span class="badge">E</span> Muscle development</label>
+            </div>
+          </fieldset>
+
+          <fieldset class="question" data-correct="B,D,E">
+            <legend class="q-title">2) What approaches to stop aging are being explored? (Select all that apply)</legend>
+            <div class="options">
+              <label class="option"><input type="checkbox" name="q2" value="A"><span class="badge">A</span> Increased eating</label>
+              <label class="option"><input type="checkbox" name="q2" value="B"><span class="badge">B</span> Telomerase activation</label>
+              <label class="option"><input type="checkbox" name="q2" value="C"><span class="badge">C</span> Less sleep</label>
+              <label class="option"><input type="checkbox" name="q2" value="D"><span class="badge">D</span> Senolytic drugs</label>
+              <label class="option"><input type="checkbox" name="q2" value="E"><span class="badge">E</span> Caloric restriction</label>
+            </div>
+          </fieldset>
+
+          <fieldset class="question" data-correct="A,C,E">
+            <legend class="q-title">3) What are the research focuses mentioned? (Select all that apply)</legend>
+            <div class="options">
+              <label class="option"><input type="checkbox" name="q3" value="A"><span class="badge">A</span> Extending healthspan</label>
+              <label class="option"><input type="checkbox" name="q3" value="B"><span class="badge">B</span> Achieving immortality</label>
+              <label class="option"><input type="checkbox" name="q3" value="C"><span class="badge">C</span> Maintaining vitality</label>
+              <label class="option"><input type="checkbox" name="q3" value="D"><span class="badge">D</span> Stopping time</label>
+              <label class="option"><input type="checkbox" name="q3" value="E"><span class="badge">E</span> Preserving cognitive function</label>
+            </div>
+          </fieldset>
+        </div>
+
+        <!-- Task 2: True/False -->
+        <div class="task-group">
+          <h5 style="color: #6b7280; margin: 20px 0 12px 0;">Task 2: True/False Questions</h5>
+          
+          <fieldset class="question" data-correct="A">
+            <legend class="q-title">4) Aging is influenced by genetic, environmental, and lifestyle factors.</legend>
+            <div class="options">
+              <label class="option"><input type="radio" name="q4" value="A"><span class="badge">A</span> True</label>
+              <label class="option"><input type="radio" name="q4" value="B"><span class="badge">B</span> False</label>
+            </div>
+          </fieldset>
+
+          <fieldset class="question" data-correct="B">
+            <legend class="q-title">5) Complete elimination of aging has already been achieved.</legend>
+            <div class="options">
+              <label class="option"><input type="radio" name="q5" value="A"><span class="badge">A</span> True</label>
+              <label class="option"><input type="radio" name="q5" value="B"><span class="badge">B</span> False</label>
+            </div>
+          </fieldset>
+        </div>
+
+        <!-- Task 3: Gap Filling -->
+        <div class="task-group">
+          <h5 style="color: #6b7280; margin: 20px 0 12px 0;">Task 3: Complete the Sentences</h5>
+          
+          <fieldset class="question" data-correct="A">
+            <legend class="q-title">6) What are senolytics?</legend>
+            <div class="options">
+              <label class="option"><input type="radio" name="q6" value="A"><span class="badge">A</span> Drugs that kill aging cells</label>
+              <label class="option"><input type="radio" name="q6" value="B"><span class="badge">B</span> Oxygen-carrying molecules</label>
+              <label class="option"><input type="radio" name="q6" value="C"><span class="badge">C</span> Universe-expanding forces</label>
+              <label class="option"><input type="radio" name="q6" value="D"><span class="badge">D</span> Types of galaxies</label>
+            </div>
+          </fieldset>
+
+          <fieldset class="question" data-correct="C">
+            <legend class="q-title">7) Healthspan refers to the period of life spent in ______ health.</legend>
+            <div class="options">
+              <label class="option"><input type="radio" name="q7" value="A"><span class="badge">A</span> Poor</label>
+              <label class="option"><input type="radio" name="q7" value="B"><span class="badge">B</span> Average</label>
+              <label class="option"><input type="radio" name="q7" value="C"><span class="badge">C</span> Good</label>
+              <label class="option"><input type="radio" name="q7" value="D"><span class="badge">D</span> Terminal</label>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="actions">
+          <button class="btn" data-action="check" type="button">Check Results</button>
+          <button class="btn secondary" data-action="reset" type="button">Reset</button>
+        </div>
+
+        <div class="result"></div>
+      </form>
+
+    </div>
+  </div>
+
+  <script src="assets/app.js"></script>
+  <script src="assets/auth.js"></script>
+  <script src="assets/quiz.js"></script>
+</body>
+</html>

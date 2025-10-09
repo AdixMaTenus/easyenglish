@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>EasyEnglish — Module 4 Grammar</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <span class="logo">📚</span>
+        <span class="brand-name">EasyEnglish</span>
+      </div>
+      
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="module4.html">Module 4</a>
+        <a href="module4-reading.html">Reading</a>
+        <a href="module4-grammar.html" class="active">Grammar</a>
+        <a href="results.html">My Results</a>
+      </div>
+
+      <div class="nav-right">
+        <div class="lang-switch">
+          <button class="lang-btn" data-lang="kk" onclick="setLang('kk')" aria-label="Қазақ тілі">KZ</button>
+          <button class="lang-btn" data-lang="ru" onclick="setLang('ru')" aria-label="Русский">RU</button>
+          <button class="lang-btn" data-lang="en" onclick="setLang('en')" aria-label="English">EN</button>
+        </div>
+
+        <div class="auth-section">
+          <button id="loginBtn" class="btn-login">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor">
+              <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z" fill="#4285F4"/>
+              <path d="M9.003 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.96v2.332C2.44 15.983 5.485 18 9.003 18z" fill="#34A853"/>
+              <path d="M3.964 10.712c-.18-.54-.282-1.117-.282-1.71 0-.593.102-1.17.282-1.71V4.96H.957C.347 6.175 0 7.55 0 9.002c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/>
+              <path d="M9.003 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.464.891 11.426 0 9.003 0 5.485 0 2.44 2.017.96 4.96L3.967 7.29c.708-2.127 2.692-3.71 5.036-3.71z" fill="#EA4335"/>
+            </svg>
+            Google
+          </button>
+          
+          <div id="userProfile" class="user-profile">
+            <img id="userPhoto" class="avatar" alt="User" />
+            <span id="userName"></span>
+            <button class="btn-logout" onclick="logout()">Logout</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <div class="card">
+      <div class="lesson-header">
+        <div class="lesson-icon-large">📝</div>
+        <h2>Module 4: Grammar</h2>
+        <p class="lead">Compound words, Comparisons, Wish/If only, Prepositional phrases, and Linkers</p>
+      </div>
+
+      <!-- Compound Nouns/Adjectives -->
+      <div class="section textblock">
+        <h3 style="color: var(--primary); margin-bottom: 16px;">1. Compound Nouns & Adjectives (-ing/-ed Adjectives)</h3>
+        
+        <div style="background: #f0f9ff; padding: 20px; border-radius: 8px; margin: 16px 0; border-left: 4px solid var(--primary);">
+          <h4 style="color: var(--primary); margin-bottom: 12px;">🔗 Compound Nouns</h4>
+          <p><strong>What are they?</strong> Nouns made of two or more words that function as a single unit.</p>
+          <p><strong>Types:</strong></p>
+          <ul style="margin-left: 20px; margin-bottom: 12px;">
+            <li><strong>Closed:</strong> bedroom, sunlight, keyboard</li>
+            <li><strong>Hyphenated:</strong> mother-in-law, check-in, well-being</li>
+            <li><strong>Open:</strong> post office, swimming pool, science fiction</li>
+          </ul>
+          <p><strong>Science examples:</strong> black hole, dark matter, space station, research paper</p>
+        </div>
+
+        <div style="background: #f0f9ff; padding: 20px; border-radius: 8px; margin: 16px 0; border-left: 4px solid #10b981;">
+          <h4 style="color: #10b981; margin-bottom: 12px;">🎯 -ing vs -ed Adjectives</h4>
+          <p><strong>-ing adjectives</strong> describe what something/someone IS LIKE (the cause)</p>
+          <p><strong>-ed adjectives</strong> describe how someone FEELS (the effect)</p>
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px;">
+            <div style="background: white; padding: 12px; border-radius: 6px;">
+              <strong>-ing (describing things):</strong><br>
+              The lecture was <em>interesting</em><br>
+              Space is <em>fascinating</em><br>
+              The theory is <em>confusing</em>
+            </div>
+            <div style="background: white; padding: 12px; border-radius: 6px;">
+              <strong>-ed (describing feelings):</strong><br>
+              I was <em>interested</em> in the lecture<br>
+              She felt <em>fascinated</em> by space<br>
+              He was <em>confused</em> by the theory
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tasks for Compound Words -->
+      <form class="quiz section" data-lesson-id="module4-grammar-compound">
+        <h4 style="color: var(--primary); margin: 24px 0 16px 0;">Exercises: Compound Nouns & Adjectives</h4>
+
+        <!-- Task 1: Multiple Choice with Multiple Answers -->
+        <div class="task-group">
+          <h5 style="color: #6b7280; margin: 20px 0 12px 0;">Task 1: Multiple Choice Questions (Choose ALL correct answers)</h5>
+          
+          <fieldset class="question" data-correct="A,C,E">
+            <legend class="q-title">1) Which are correct compound nouns? (Select all that apply)</legend>
+            <div class="options">
+              <label class="option"><input type="checkbox" name="q1" value="A"><span class="badge">A</span> Space station</label>
+              <label class="option"><input type="checkbox" name="q1" value="B"><span class="badge">B</span> Spacestation</label>
+              <label class="option"><input type="checkbox" name="q1" value="C"><span class="badge">C</span> Black hole</label>
+              <label class="option"><input type="checkbox" name="q1" value="D"><span class="badge">D</span> Blackhole</label>
+              <label class="option"><input type="checkbox" name="q1" value="E"><span class="badge">E</span> Research paper</label>
+            </div>
+          </fieldset>
+
+          <fieldset class="question" data-correct="B,D,E">
+            <legend class="q-title">2) Which sentences use -ing/-ed adjectives correctly? (Select all that apply)</legend>
+            <div class="options">
+              <label class="option"><input type="checkbox" name="q2" value="A"><span class="badge">A</span> I am very interesting in astronomy</label>
+              <label class="option"><input type="checkbox" name="q2" value="B"><span class="badge">B</span> The discovery was amazing</label>
+              <label class="option"><input type="checkbox" name="q2" value="C"><span class="badge">C</span> She was amazing by the results</label>
+              <label class="option"><input type="checkbox" name="q2" value="D"><span class="badge">D</span> We were fascinated by the theory</label>
+              <label class="option"><input type="checkbox" name="q2" value="E"><span class="badge">E</span> The results were surprising</label>
+            </div>
+          </fieldset>
+
+          <fieldset class="question" data-correct="A,C,D">
+            <legend class="q-title">3) What are characteristics of compound nouns? (Select all that apply)</legend>
+            <div class="options">
+              <label class="option"><input type="checkbox" name="q3" value="A"><span class="badge">A</span> Made of multiple words</label>
+              <label class="option"><input type="checkbox" name="q3" value="B"><span class="badge">B</span> Always hyphenated</label>
+              <label class="option"><input type="checkbox" name="q3" value="C"><span class="badge">C</span> Function as single unit</label>
+              <label class="option"><input type="checkbox" name="q3" value="D"><span class="badge">D</span> Can be open, closed, or hyphenated</label>
+              <label class="option"><input type="checkbox" name="q3" value="E"><span class="badge">E</span> Always written as one word</label>
+            </div>
+          </fieldset>
+        </div>
+
+        <!-- Task 2: True/False -->
+        <div class="task-group">
+          <h5 style="color: #6b7280; margin: 20px 0 12px 0;">Task 2: True/False Questions</h5>
+          
+          <fieldset class="question" data-correct="A">
+            <legend class="q-title">4) "-ing" adjectives describe what something is like, while "-ed" adjectives describe how someone feels.</legend>
+            <div class="options">
+              <label class="option"><input type="radio" name="q4" value="A"><span class="badge">A</span> True</label>
+              <label class="option"><input type="radio" name="q4" value="B"><span class="badge">B</span> False</label>
+            </div>
+          </fieldset>
+
+          <fieldset class="question" data-correct="B">
+            <legend class="q-title">5) "Mother-in-law" is an example of a closed compound noun.</legend>
+            <div class="options">
+              <label class="option"><input type="radio" name="q5" value="A"><span class="badge">A</span> True</label>
+              <label class="option"><input type="radio" name="q5" value="B"><span class="badge">B</span> False</label>
+            </div>
+          </fieldset>
+        </div>
+
+        <!-- Task 3: Fill in the Blanks -->
+        <div class="task-group">
+          <h5 style="color: #6b7280; margin: 20px 0 12px 0;">Task 3: Complete the Sentences</h5>
+          
+          <fieldset class="question" data-correct="B">
+            <legend class="q-title">6) Choose the correct -ing/-ed adjective: "I was _____ by the scientific discovery."</legend>
+            <div class="options">
+              <label class="option"><input type="radio" name="q6" value="A"><span class="badge">A</span> amazing</label>
+              <label class="option"><input type="radio" name="q6" value="B"><span class="badge">B</span> amazed</label>
+              <label class="option"><input type="radio" name="q6" value="C"><span class="badge">C</span> amaze</label>
+              <label class="option"><input type="radio" name="q6" value="D"><span class="badge">D</span> amazingly</label>
+            </div>
+          </fieldset>
+
+          <fieldset class="question" data-correct="B">
+            <legend class="q-title">7) Complete the compound noun: "The _____ is where astronauts live in space."</legend>
+            <div class="options">
+              <label class="option"><input type="radio" name="q7" value="A"><span class="badge">A</span> space-ship</label>
+              <label class="option"><input type="radio" name="q7" value="B"><span class="badge">B</span> space station</label>
+              <label class="option"><input type="radio" name="q7" value="C"><span class="badge">C</span> station-space</label>
+              <label class="option"><input type="radio" name="q7" value="D"><span class="badge">D</span> spaceship station</label>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="actions">
+          <button class="btn" data-action="check" type="button">Check Results</button>
+          <button class="btn secondary" data-action="reset" type="button">Reset</button>
+        </div>
+
+        <div class="result"></div>
+      </form>
+
+      <!-- Comparisons -->
+      <div class="section textblock">
+        <h3 style="color: var(--primary); margin-bottom: 16px;">2. Comparisons</h3>
+        
+        <div style="background: #ecfdf5; padding: 20px; border-radius: 8px; margin: 16px 0; border-left: 4px solid #10b981;">
+          <h4 style="color: #10b981; margin-bottom: 12px;">📊 Comparative & Superlative Forms</h4>
+          
+          <table style="width: 100%; border-collapse: collapse; margin: 12px 0;">
+            <tr style="background: var(--primary); color: white;">
+              <th style="padding: 8px; text-align: left;">Adjective</th>
+              <th style="padding: 8px; text-align: left;">Comparative</th>
+              <th style="padding: 8px; text-align: left;">Superlative</th>
+            </tr>
+            <tr style="background: #f8fafc;">
+              <td style="padding: 8px; border: 1px solid #e2e8f0;">big</td>
+              <td style="padding: 8px; border: 1px solid #e2e8f0;">bigger</td>
+              <td style="padding: 8px; border: 1px solid #e2e8f0;">biggest</td>
+            </tr>
+            <tr style="background: white;">
+              <td style="padding: 8px; border: 1px solid #e2e8f0;">interesting</td>
+              <td style="padding: 8px; border: 1px solid #e2e8f0;">more interesting</td>
+              <td style="padding: 8px; border: 1px solid #e2e8f0;">most interesting</td>
+            </tr>
+            <tr style="background: #f8fafc;">
+              <td style="padding: 8px; border: 1px solid #e2e8f0;">good</td>
+              <td style="padding: 8px; border: 1px solid #e2e8f0;">better</td>
+              <td style="padding: 8px; border: 1px solid #e2e8f0;">best</td>
+            </tr>
+            <tr style="background: white;">
+              <td style="padding: 8px; border: 1px solid #e2e8f0;">bad</td>
+              <td style="padding: 8px; border: 1px solid #e2e8f0;">worse</td>
+              <td style="padding: 8px; border: 1px solid #e2e8f0;">worst</td>
+            </tr>
+          </table>
+
+          <p><strong>Examples in science context:</strong></p>
+          <ul style="margin-left: 20px;">
+            <li>The universe is <em>larger than</em> we imagined</li>
+            <li>This theory is <em>more complex than</em> the previous one</li>
+            <li>Oxygen is <em>the most abundant</em> element in the human body</li>
+            <li>That was <em>the worst</em> scientific mistake in history</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Tasks for Comparisons -->
+      <form class="quiz section" data-lesson-id="module4-grammar-comparisons">
+        <h4 style="color: var(--primary); margin: 24px 0 16px 0;">Exercises: Comparisons</h4>
+
+        <!-- Task 1: Multiple Choice with Multiple Answers -->
+        <div class="task-group">
+          <h5 style="color: #6b7280; margin: 20px 0 12px 0;">Task 1: Multiple Choice Questions (Choose ALL correct answers)</h5>
+          
+          <fieldset class="question" data-correct="C,D,E">
+            <legend class="q-title">1) Which sentences use correct comparative forms? (Select all that apply)</legend>
+            <div class="options">
+              <label class="option"><input type="checkbox" name="q1" value="A"><span class="badge">A</span> This theory is more good than that one</label>
+              <label class="option"><input type="checkbox" name="q1" value="B"><span class="badge">B</span> She is the intelligentest student</label>
+              <label class="option"><input type="checkbox" name="q1" value="C"><span class="badge">C</span> The universe is larger than we thought</label>
+              <label class="option"><input type="checkbox" name="q1" value="D"><span class="badge">D</span> This is more interesting than that</label>
+              <label class="option"><input type="checkbox" name="q1" value="E"><span class="badge">E</span> He is better at math than me</label>
+            </div>
+          </fieldset>
+
+          <fieldset class="question" data-correct="A,C,E">
+            <legend class="q-title">2) Which are irregular comparative forms? (Select all that apply)</legend>
+            <div class="options">
+              <label class="option"><input type="checkbox" name="q2" value="A"><span class="badge">A</span> good → better</label>
+              <label class="option"><input type="checkbox" name="q2" value="B"><span class="badge">B</span> big → bigger</label>
+              <label class="option"><input type="checkbox" name="q2" value="C"><span class="badge">C</span> bad → worse</label>
+              <label class="option"><input type="checkbox" name="q2" value="D"><span class="badge">D</span> small → smaller</label>
+              <label class="option"><input type="checkbox" name="q2" value="E"><span class="badge">E</span> far → further</label>
+            </div>
+          </fieldset>
+
+          <fieldset class="question" data-correct="B,D,E">
+            <legend class="q-title">3) What are the rules for comparative forms? (Select all that apply)</legend>
+            <div class="options">
+              <label class="option"><input type="checkbox" name="q3" value="A"><span class="badge">A</span> All adjectives add -er</label>
+              <label class="option"><input type="checkbox" name="q3" value="B"><span class="badge">B</span> Short adjectives add -er</label>
+              <label class="option"><input type="checkbox" name="q3" value="C"><span class="badge">C</span> Long adjectives use "more"</label>
+              <label class="option"><input type="checkbox" name="q3" value="D"><span class="badge">D</span> Some adjectives are irregular</label>
+              <label class="option"><input type="checkbox" name="q3" value="E"><span class="badge">E</span> Use "than" for comparison</label>
+            </div>
+          </fieldset>
+        </div>
+
+        <!-- Task 2: True/False -->
+        <div class="task-group">
+          <h5 style="color: #6b7280; margin: 20px 0 12px 0;">Task 2: True/False Questions</h5>
+          
+          <fieldset class="question" data-correct="A">
+            <legend class="q-title">4) For long adjectives, we use "more" + adjective for comparative form.</legend>
+            <div class="options">
+              <label class="option"><input type="radio" name="q4" value="A"><span class="badge">A</span> True</label>
+              <label class="option"><input type="radio" name="q4" value="B"><span class="badge">B</span> False</label>
+            </div>
+          </fieldset>
+
+          <fieldset class="question" data-correct="B">
+            <legend class="q-title">5) "Gooder" is the correct comparative form of "good".</legend>
+            <div class="options">
+              <label class="option"><input type="radio" name="q5" value="A"><span class="badge">A</span> True</label>
+              <label class="option"><input type="radio" name="q5" value="B"><span class="badge">B</span> False</label>
+            </div>
+          </fieldset>
+        </div>
+
+        <!-- Task 3: Sentence Completion -->
+        <div class="task-group">
+          <h5 style="color: #6b7280; margin: 20px 0 12px 0;">Task 3: Complete the Sentences</h5>
+          
+          <fieldset class="question" data-correct="A">
+            <legend class="q-title">6) Choose the correct comparative: "This experiment is _____ than the previous one." (successful)</legend>
+            <div class="options">
+              <label class="option"><input type="radio" name="q6" value="A"><span class="badge">A</span> more successful</label>
+              <label class="option"><input type="radio" name="q6" value="B"><span class="badge">B</span> successfuler</label>
+              <label class="option"><input type="radio" name="q6" value="C"><span class="badge">C</span> most successful</label>
+              <label class="option"><input type="radio" name="q6" value="D"><span class="badge">D</span> successfuller</label>
+            </div>
+          </fieldset>
+
+          <fieldset class="question" data-correct="C">
+            <legend class="q-title">7) Complete: "Jupiter is _____ planet in our solar system." (large)</legend>
+            <div class="options">
+              <label class="option"><input type="radio" name="q7" value="A"><span class="badge">A</span> larger</label>
+              <label class="option"><input type="radio" name="q7" value="B"><span class="badge">B</span> more large</label>
+              <label class="option"><input type="radio" name="q7" value="C"><span class="badge">C</span> the largest</label>
+              <label class="option"><input type="radio" name="q7" value="D"><span class="badge">D</span> most large</label>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="actions">
+          <button class="btn" data-action="check" type="button">Check Results</button>
+          <button class="btn secondary" data-action="reset" type="button">Reset</button>
+        </div>
+
+        <div class="result"></div>
+      </form>
+
+      <!-- Wish/If Only -->
+      <div class="section textblock">
+        <h3 style="color: var(--primary); margin-bottom: 16px;">3. Wish / If Only</h3>
+        
+        <div style="background: #e0e7ff; padding: 20px; border-radius: 8px; margin: 16px 0; border-left: 4px solid #4f46e5;">
+          <h4 style="color: #4f46e5; margin-bottom: 12px;">✨ Expressing Wishes and Regrets</h4>
+          
+          <div style="background: white; padding: 16px; border-radius: 8px; margin: 12px 0;">
+            <h5 style="color: #dc2626; margin-bottom: 8px;">Present/Future Wishes</h5>
+            <p><strong>Wish/If only + Past Simple</strong> (for present situations we want to change)</p>
+            <p>I wish I <em>understood</em> quantum physics better</p>
+            <p>If only I <em>had</em> more time for research</p>
+          </div>
+
+          <div style="background: white; padding: 16px; border-radius: 8px; margin: 12px 0;">
+            <h5 style="color: #dc2626; margin-bottom: 8px;">Past Regrets</h5>
+            <p><strong>Wish/If only + Past Perfect</strong> (for past situations we regret)</p>
+            <p>I wish I <em>had studied</em> harder for the exam</p>
+            <p>If only they <em>had discovered</em> this earlier</p>
+          </div>
+
+          <div style="background: white; padding: 16px; border-radius: 8px; margin: 12px 0;">
+            <h5 style="color: #dc2626; margin-bottom: 8px;">Complaints about Present</h5>
+            <p><strong>Wish/If only + would</strong> (for complaints about present behavior/situations)</p>
+            <p>I wish it <em>would stop</em> raining during the experiment</p>
+            <p>If only the equipment <em>would work</em> properly</p>
+          </div>
+
+          <p style="margin-top: 12px; padding: 8px; background: #fef3c7; border-radius: 4px;">
+            <strong>💡 Remember:</strong> "If only" is stronger and more emotional than "I wish"!
+          </p>
+        </div>
+      </div>
+
+      <!-- Tasks for Wish/If Only -->
+      <form class="quiz section" data-lesson-id="module4-grammar-wish">
+        <h4 style="color: var(--primary); margin: 24px 0 16px 0;">Exercises: Wish / If Only</h4>
+
+        <!-- Task 1: Multiple Choice with Multiple Answers -->
+        <div class="task-group">
+          <h5 style="color: #6b7280; margin: 20px 0 12px 0;">Task 1: Multiple Choice Questions (Choose ALL correct answers)</h5>
+          
+          <fieldset class="question" data-correct="B,D,E">
+            <legend class="q-title">1) Which sentences use "wish/if only" correctly? (Select all that apply)</legend>
+            <div class="options">
+              <label class="option"><input type="checkbox" name="q1" value="A"><span class="badge">A</span> I wish I know the answer</label>
+              <label class="option"><input type="checkbox" name="q1" value="B"><span class="badge">B</span> I wish I knew the answer</label>
+              <label class="option"><input type="checkbox" name="q1" value="C"><span class="badge">C</span> If only I have more time</label>
+              <label class="option"><input type="checkbox" name="q1" value="D"><span class="badge">D</span> If only I had studied more</label>
+              <label class="option"><input type="checkbox" name="q1" value="E"><span class="badge">E</span> I wish it would stop raining</label>
+            </div>
+          </fieldset>
+
+          <fieldset class="question" data-correct="A,C,E">
+            <legend class="q-title">2) What are the different uses of "wish/if only"? (Select all that apply)</legend>
+            <div class="options">
+              <label class="option"><input type="checkbox" name="q2" value="A"><span class="badge">A</span> Present wishes</label>
+              <label class="option"><input type="checkbox" name="q2" value="B"><span class="badge">B</span> Future predictions</label>
+              <label class="option"><input type="checkbox" name="q2" value="C"><span class="badge">C</span> Past regrets</label>
+              <label class="option"><input type="checkbox" name="q2" value="D"><span class="badge">D</span> Current facts</label>
+              <label class="option"><input type="checkbox" name="q2" value="E"><span class="badge">E</span> Present complaints</label>
+            </div>
+          </fieldset>
+
+          <fieldset class="question" data-correct="B,C,D">
+            <legend class="q-title">3) Which verb forms are used with "wish/if only"? (Select all that apply)</legend>
+            <div class="options">
+              <label class="option"><input type="checkbox" name="q3" value="A"><span class="badge">A</span> Present Simple</label>
+              <label class="option"><input type="checkbox" name="q3" value="B"><span class="badge">B</span> Past Simple</label>
+              <label class="option"><input type="checkbox" name="q3" value="C"><span class="badge">C</span> Past Perfect</label>
+              <label class="option"><input type="checkbox" name="q3" value="D"><span class="badge">D</span> Would + base verb</label>
+              <label class="option"><input type="checkbox" name="q3" value="E"><span class="badge">E</span> Future Simple</label>
+            </div>
+          </fieldset>
+        </div>
+
+        <!-- Task 2: True/False -->
+        <div class="task-group">
+          <h5 style="color: #6b7280; margin: 20px 0 12px 0;">Task 2: True/False Questions</h5>
+          
+          <fieldset class="question" data-correct="B">
+            <legend class="q-title">4) "If only" is weaker and less emotional than "I wish".</legend>
+            <div class="options">
+              <label class="option"><input type="radio" name="q4" value="A"><span class="badge">A</span> True</label>
+              <label class="option"><input type="radio" name="q4" value="B"><span class="badge">B</span> False</label>
+            </div>
+          </fieldset>
+
+          <fieldset class="question" data-correct="A">
+            <legend class="q-title">5) "I wish I had studied" expresses regret about the past.</legend>
+            <div class="options">
+              <label class="option"><input type="radio" name="q5" value="A"><span class="badge">A</span> True</label>
+              <label class="option"><input type="radio" name="q5" value="B"><span class="badge">B</span> False</label>
+            </div>
+          </fieldset>
+        </div>
+
+        <!-- Task 3: Sentence Completion -->
+        <div class="task-group">
+          <h5 style="color: #6b7280; margin: 20px 0 12px 0;">Task 3: Complete the Sentences</h5>
+          
+          <fieldset class="question" data-correct="C">
+            <legend class="q-title">6) Complete the wish: "I wish I _____ more about cosmology."</legend>
+            <div class="options">
+              <label class="option"><input type="radio" name="q6" value="A"><span class="badge">A</span> know</label>
+              <label class="option"><input type="radio" name="q6" value="B"><span class="badge">B</span> will know</label>
+              <label class="option"><input type="radio" name="q6" value="C"><span class="badge">C</span> knew</label>
+              <label class="option"><input type="radio" name="q6" value="D"><span class="badge">D</span> had known</label>
+            </div>
+          </fieldset>
+
+          <fieldset class="question" data-correct="D">
+            <legend class="q-title">7) Match the wish type: "I wish I had studied harder"</legend>
+            <div class="options">
+              <label class="option"><input type="radio" name="q7" value="A"><span class="badge">A</span> Present wish</label>
+              <label class="option"><input type="radio" name="q7" value="B"><span class="badge">B</span> Future wish</label>
+              <label class="option"><input type="radio" name="q7" value="C"><span class="badge">C</span> Complaint</label>
+              <label class="option"><input type="radio" name="q7" value="D"><span class="badge">D</span> Past regret</label>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="actions">
+          <button class="btn" data-action="check" type="button">Check Results</button>
+          <button class="btn secondary" data-action="reset" type="button">Reset</button>
+        </div>
+
+        <div class="result"></div>
+      </form>
+
+    </div>
+  </div>
+
+  <script src="assets/app.js"></script>
+  <script src="assets/auth.js"></script>
+  <script src="assets/quiz.js"></script>
+</body>
+</html>

@@ -367,7 +367,7 @@ const translations = {
     footer_features: "Features",
     footer_contact: "Contact Us",
     footer_faq: "FAQ",
-    footer_copyright: "© 2024 EasyEnglish. All rights reserved. | School Project",
+    footer_copyright: "© 2025 EasyEnglish. All rights reserved. | School Project made by student of Abai School Ikram Aldiyarkhan",
     footer_meta: "Available in Kazakh, Russian, and English",
     module1_short: "Module 1",
     module2_short: "Module 2",
@@ -443,4 +443,5 @@ document.addEventListener("DOMContentLoaded", () => {
   applyLang(saved);
 
 });
+
 

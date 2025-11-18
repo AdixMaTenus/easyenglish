@@ -1,137 +1,15 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>EasyEnglish — Модуль 1: Адам миы (Оқу)</title>
-
-  <!-- Основные стили сайта -->
+  <title>EasyEnglish — Module 1 Grammar</title>
   <link rel="stylesheet" href="assets/styles.css" />
-
-  <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
-
-  <!-- Новый дизайн страницы -->
-  <style>
-    .reading-section {
-      background: white;
-      border-radius: 16px;
-      padding: 40px;
-      margin: 40px 0;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-      border: 1px solid #e5e7eb;
-    }
-    .reading-section h2 {
-      color: #4f46e5;
-      font-size: 2.4rem;
-      margin-bottom: 24px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .reading-section p {
-      font-size: 1.15rem;
-      line-height: 1.9;
-      margin-bottom: 18px;
-      text-align: justify;
-    }
-
-    .task-section {
-      background: white;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-      border: 3px solid #4f46e5;
-      overflow: hidden;
-      margin: 50px 0;
-    }
-    .task-header {
-      background: linear-gradient(135deg, #4f46e5, #6366f1);
-      color: white;
-      padding: 32px 40px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-    .task-header h3 { font-size: 2rem; font-weight: 700; display: flex; gap: 16px; }
-    .task-number-badge {
-      background: rgba(255,255,255,0.3);
-      width: 56px; height: 56px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.8rem;
-      font-weight: bold;
-      backdrop-filter: blur(10px);
-    }
-    .task-count {
-      background: rgba(255,255,255,0.2);
-      padding: 10px 20px;
-      border-radius: 30px;
-    }
-    .task-body { padding: 40px; }
-
-    .question-card {
-      background: #f8fafc;
-      border: 2px solid #e2e8f0;
-      border-radius: 14px;
-      padding: 24px;
-      margin-bottom: 24px;
-      position: relative;
-      transition: all 0.3s ease;
-    }
-    .question-card::before {
-      content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px;
-      background: #4f46e5; border-radius: 14px 0 0 14px;
-    }
-    .question-card:hover { border-color: #4f46e5; transform: translateY(-4px); box-shadow: 0 8px 25px rgba(79,70,229,0.2); }
-    .question-card.correct { border-color: #10b981; background: #ecfdf5; }
-    .question-card.correct::before { background: #10b981; }
-    .question-card.incorrect { border-color: #ef4444; background: #fef2f2; }
-    .question-card.incorrect::before { background: #ef4444; }
-
-    .question-number {
-      background: #4f46e5; color: white; width: 36px; height: 36px;
-      border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
-      font-weight: bold; font-size: 1rem; margin-right: 14px; flex-shrink: 0;
-    }
-    .question-text { font-size: 1.15rem; font-weight: 600; margin-bottom: 16px; display: flex; align-items: flex-start; }
-    .options { display: grid; gap: 12px; }
-    .option {
-      display: flex; align-items: center; padding: 16px 20px; background: white;
-      border: 2px solid #e2e8f0; border-radius: 12px; cursor: pointer; gap: 14px;
-      transition: all 0.2s;
-    }
-    .option:hover { border-color: #4f46e5; background: #f0f4ff; }
-    .option-badge {
-      background: #4f46e5; color: white; min-width: 32px; height: 32px;
-      border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      font-weight: bold;
-    }
-    .task-actions {
-      display: flex; gap: 20px; margin-top: 40px; padding-top: 30px;
-      border-top: 2px dashed #e2e8f0; flex-wrap: wrap;
-    }
-    .btn-primary, .btn-secondary {
-      padding: 14px 32px; border-radius: 12px; font-weight: 600; cursor: pointer;
-      transition: all 0.3s; font-size: 1rem;
-    }
-    .btn-primary { background: #4f46e5; color: white; border: none; }
-    .btn-primary:hover { background: #4338ca; transform: translateY(-3px); box-shadow: 0 10px 25px rgba(79,70,229,0.4); }
-    .btn-secondary { background: #f1f5f9; color: #1e293b; border: 1px solid #e2e8f0; }
-    .result {
-      margin-top: 30px; padding: 24px; border-radius: 12px;
-      text-align: center; font-size: 1.3rem; font-weight: 600; display: none;
-    }
-  </style>
 </head>
 <body>
-
-  <!-- ТОПБАР -->
   <nav class="nav">
     <div class="nav-inner">
       <div class="nav-brand">
@@ -140,15 +18,20 @@
       </div>
       
       <div class="nav-links">
-        <a href="index.html">Басты бет</a>
-        <a href="module1.html">Модуль 1</a>
-        <a href="module2.html">Модуль 2</a>
-        <a href="module3.html">Модуль 3</a>
-        <a href="module4.html">Модуль 4</a>
-        <a href="results.html">Менің нәтижелерім</a>
+        <a href="index.html">Home</a>
+        <a href="module1.html">Module 1</a>
+        <a href="module1-reading.html">Reading</a>
+        <a href="module1-grammar.html" class="active">Grammar</a>
+        <a href="results.html">My Results</a>
       </div>
 
       <div class="nav-right">
+        <div class="lang-switch">
+          <button class="lang-btn" data-lang="kk" onclick="setLang('kk')" aria-label="Қазақ тілі">KZ</button>
+          <button class="lang-btn" data-lang="ru" onclick="setLang('ru')" aria-label="Русский">RU</button>
+          <button class="lang-btn" data-lang="en" onclick="setLang('en')" aria-label="English">EN</button>
+        </div>
+
         <div class="auth-section">
           <button id="loginBtn" class="btn-login">
             <svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor">
@@ -157,13 +40,13 @@
               <path d="M3.964 10.712c-.18-.54-.282-1.117-.282-1.71 0-.593.102-1.17.282-1.71V4.96H.957C.347 6.175 0 7.55 0 9.002c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/>
               <path d="M9.003 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.464.891 11.426 0 9.003 0 5.485 0 2.44 2.017.96 4.96L3.967 7.29c.708-2.127 2.692-3.71 5.036-3.71z" fill="#EA4335"/>
             </svg>
-            Google арқылы кіру
+            Google
           </button>
           
-          <div id="userProfile" class="user-profile" style="display:none;align-items:center;gap:12px;">
-            <img id="userPhoto" class="avatar" src="" alt=""/>
+          <div id="userProfile" class="user-profile">
+            <img id="userPhoto" class="avatar" alt="User" />
             <span id="userName"></span>
-            <button class="btn-logout" onclick="logout()">Шығу</button>
+            <button class="btn-logout" onclick="logout()">Logout</button>
           </div>
         </div>
       </div>
@@ -171,154 +54,255 @@
   </nav>
 
   <div class="wrap">
-
-    <!-- Заголовок и текст чтения (пока заглушка) -->
-    <div class="reading-section">
-      <h2>🧠 Адам миының құрылысы мен қызметі</h2>
-      <p>Мұнда оқу мәтіні болады... (кейін қосамыз)</p>
-    </div>
-
-    <!-- Задания -->
-    <div class="task-section">
-      <div class="task-header">
-        <h3>
-          <span class="task-number-badge">1</span>
-          Оқу бойынша тест
-        </h3>
-        <div class="task-count">21 сұрақ</div>
+    <div class="card">
+      <div class="lesson-header">
+        <div class="lesson-icon-large">📝</div>
+        <h2>Module 1: Grammar</h2>
+        <p class="lead">Simple explanations and practice exercises</p>
       </div>
 
-      <div class="task-body">
-        <form class="quiz" data-lesson-id="module1-reading-brain">
+      <!-- Question Types -->
+      <div class="section textblock">
+        <h3 style="color: var(--primary); margin-bottom: 16px;" data-i18n="question_types_title">1. Question Types</h3>
+        
+        <div style="background: #f0f9ff; padding: 20px; border-radius: 8px; margin: 16px 0; border-left: 4px solid var(--primary);">
+          <h4 style="color: var(--primary); margin-bottom: 12px;">🎯 Alternative Questions</h4>
+          <p data-i18n="alt_questions_desc"><strong>What are they?</strong> Questions that offer a choice between two options.</p>
+          <p><strong>Formula:</strong> Do you want <em style="color: #dc2626;">tea or coffee</em>?</p>
+          <p data-i18n="alt_questions_examples"><strong>Examples:</strong></p>
+          <ul style="margin-left: 20px; margin-bottom: 12px;">
+            <li>Are you studying <em>English or French</em>?</li>
+            <li>Did you go <em>by bus or by taxi</em>?</li>
+            <li>Is she <em>a teacher or a doctor</em>?</li>
+          </ul>
+        </div>
 
-          <!-- 1 -->
-          <fieldset class="question-card" data-correct="C">
-            <div class="question-text"><span class="question-number">1</span> Адам миының салмағы шамамен қанша?</div>
+        <div style="background: #f0f9ff; padding: 20px; border-radius: 8px; margin: 16px 0; border-left: 4px solid #10b981;">
+          <h4 style="color: #10b981; margin-bottom: 12px;">🏷️ Tag Questions</h4>
+          <p data-i18n="tag_questions_desc"><strong>What are they?</strong> Short questions added to the end of statements to confirm information.</p>
+          <p data-i18n="tag_questions_rule"><strong>Rule:</strong> If the main sentence is positive → the tag is negative, and vice versa.</p>
+          <p data-i18n="tag_questions_examples"><strong>Examples:</strong></p>
+          <ul style="margin-left: 20px; margin-bottom: 12px;">
+            <li>You like English, <em style="color: #dc2626;">don't you</em>? ✅</li>
+            <li>She doesn't work here, <em style="color: #dc2626;">does she</em>? ✅</li>
+            <li>They are students, <em style="color: #dc2626;">aren't they</em>? ✅</li>
+          </ul>
+          <p data-i18n="tag_questions_remember"><strong>Remember:</strong> I am → aren't I? (It's raining, <em>aren't I</em>?)</p>
+        </div>
+      </div>
+
+      <!-- Tasks for Question Types -->
+      <form class="quiz section" data-lesson-id="module1-grammar-questions">
+        <h4 style="color: var(--primary); margin: 24px 0 16px 0;">Exercises: Question Types</h4>
+
+        <!-- Task 1: Multiple Choice -->
+        <div class="task-group">
+          <h5 style="color: #6b7280; margin: 20px 0 12px 0;">Task 1: Multiple Choice Questions</h5>
+          
+          <fieldset class="question" data-correct="B">
+            <legend class="q-title">1) Complete the tag question: "She can swim well, ______?"</legend>
             <div class="options">
-              <label class="option"><input type="radio" name="q1" value="A"><span class="option-badge">A</span> 500 г</label>
-              <label class="option"><input type="radio" name="q1" value="B"><span class="option-badge">B</span> 1 кг</label>
-              <label class="option"><input type="radio" name="q1" value="C"><span class="option-badge">C</span> 1,4 кг</label>
-              <label class="option"><input type="radio" name="q1" value="D"><span class="option-badge">D</span> 2,5 кг</label>
+              <label class="option"><input type="radio" name="q1" value="A"><span class="badge">A</span> can she</label>
+              <label class="option"><input type="radio" name="q1" value="B"><span class="badge">B</span> can't she</label>
+              <label class="option"><input type="radio" name="q1" value="C"><span class="badge">C</span> does she</label>
+              <label class="option"><input type="radio" name="q1" value="D"><span class="badge">D</span> doesn't she</label>
             </div>
           </fieldset>
 
-          <!-- 2 -->
-          <fieldset class="question-card" data-correct="B">
-            <div class="question-text"><span class="question-number">2</span> Ми қанша пайыз судан тұрады?</div>
+          <fieldset class="question" data-correct="C">
+            <legend class="q-title">2) Which is an alternative question?</legend>
             <div class="options">
-              <label class="option"><input type="radio" name="q2" value="A"><span class="option-badge">A</span> 50%</label>
-              <label class="option"><input type="radio" name="q2" value="B"><span class="option-badge">B</span> 73%</label>
-              <label class="option"><input type="radio" name="q2" value="C"><span class="option-badge">C</span> 85%</label>
-              <label class="option"><input type="radio" name="q2" value="D"><span class="option-badge">D</span> 90%</label>
+              <label class="option"><input type="radio" name="q2" value="A"><span class="badge">A</span> Where do you live?</label>
+              <label class="option"><input type="radio" name="q2" value="B"><span class="badge">B</span> You like coffee, don't you?</label>
+              <label class="option"><input type="radio" name="q2" value="C"><span class="badge">C</span> Do you prefer tea or coffee?</label>
+              <label class="option"><input type="radio" name="q2" value="D"><span class="badge">D</span> What is your name?</label>
+            </div>
+          </fieldset>
+        </div>
+
+        <!-- Task 2: True/False -->
+        <div class="task-group">
+          <h5 style="color: #6b7280; margin: 20px 0 12px 0;">Task 2: True/False Questions</h5>
+          
+          <fieldset class="question" data-correct="A">
+            <legend class="q-title">3) In tag questions, if the main sentence is positive, the tag is negative.</legend>
+            <div class="options">
+              <label class="option"><input type="radio" name="q3" value="A"><span class="badge">A</span> True</label>
+              <label class="option"><input type="radio" name="q3" value="B"><span class="badge">B</span> False</label>
             </div>
           </fieldset>
 
-          <!-- 3 -->
-          <fieldset class="question-card" data-correct="A">
-            <div class="question-text"><span class="question-number">3</span> Мидың ең үлкен бөлігі қалай аталады?</div>
+          <fieldset class="question" data-correct="B">
+            <legend class="q-title">4) "Are you coming today?" is an example of an alternative question.</legend>
             <div class="options">
-              <label class="option"><input type="radio" name="q3" value="A"><span class="option-badge">A</span> Cerebrum</label>
-              <label class="option"><input type="radio" name="q3" value="B"><span class="option-badge">B</span> Cerebellum</label>
-              <label class="option"><input type="radio" name="q3" value="C"><span class="option-badge">C</span> Brainstem</label>
-              <label class="option"><input type="radio" name="q3" value="D"><span class="option-badge">D</span> Hypothalamus</label>
+              <label class="option"><input type="radio" name="q4" value="A"><span class="badge">A</span> True</label>
+              <label class="option"><input type="radio" name="q4" value="B"><span class="badge">B</span> False</label>
+            </div>
+          </fieldset>
+        </div>
+
+        <!-- Task 3: Fill in the Blanks -->
+        <div class="task-group">
+          <h5 style="color: #6b7280; margin: 20px 0 12px 0;">Task 3: Complete the Sentences</h5>
+          
+          <fieldset class="question" data-correct="C">
+            <legend class="q-title">5) Complete the alternative question: "Do you want to go ______?"</legend>
+            <div class="options">
+              <label class="option"><input type="radio" name="q5" value="A"><span class="badge">A</span> home</label>
+              <label class="option"><input type="radio" name="q5" value="B"><span class="badge">B</span> when</label>
+              <label class="option"><input type="radio" name="q5" value="C"><span class="badge">C</span> by bus or by taxi</label>
+              <label class="option"><input type="radio" name="q5" value="D"><span class="badge">D</span> don't you</label>
             </div>
           </fieldset>
 
-          <!-- 4–21 (все остальные точно так же) -->
-          <fieldset class="question-card" data-correct="B">
-            <div class="question-text"><span class="question-number">4</span> Мишық (cerebellum) негізінен не үшін жауап береді?</div>
+          <fieldset class="question" data-correct="B">
+            <legend class="q-title">6) Complete the tag question: "I am late, ______?"</legend>
             <div class="options">
-              <label class="option"><input type="radio" name="q4" value="A"><span class="option-badge">A</span> Тыныс алу</label>
-              <label class="option"><input type="radio" name="q4" value="B"><span class="option-badge">B</span> Қозғалысты үйлестіру</label>
-              <label class="option"><input type="radio" name="q4" value="C"><span class="option-badge">C</span> Естен тану</label>
-              <label class="option"><input type="radio" name="q4" value="D"><span class="option-badge">D</span> Көру</label>
+              <label class="option"><input type="radio" name="q6" value="A"><span class="badge">A</span> am I</label>
+              <label class="option"><input type="radio" name="q6" value="B"><span class="badge">B</span> aren't I</label>
+              <label class="option"><input type="radio" name="q6" value="C"><span class="badge">C</span> am not I</label>
+              <label class="option"><input type="radio" name="q6" value="D"><span class="badge">D</span> isn't I</label>
             </div>
           </fieldset>
+        </div>
 
-          <fieldset class="question-card" data-correct="C">
-            <div class="question-text"><span class="question-number">5</span> Нейрондар ақпаратты қалай береді?</div>
-            <div class="options">
-              <label class="option"><input type="radio" name="q5" value="A"><span class="option-badge">A</span> Химиялық сигналдар арқылы</label>
-              <label class="option"><input type="radio" name="q5" value="B"><span class="option-badge">B</span> Механикалық</label>
-              <label class="option"><input type="radio" name="q5" value="C"><span class="option-badge">C</span> Электрлік импульстар арқылы</label>
-              <label class="option"><input type="radio" name="q5" value="D"><span class="option-badge">D</span> Жылу арқылы</label>
-            </div>
-          </fieldset>
+        <div class="actions">
+          <button class="btn" data-action="check" type="button">Check Results</button>
+          <button class="btn secondary" data-action="reset" type="button">Reset</button>
+        </div>
 
-          <fieldset class="question-card" data-correct="A">
-            <div class="question-text"><span class="question-number">6</span> Ми діңі (brainstem) қандай функцияларды басқарады?</div>
-            <div class="options">
-              <label class="option"><input type="radio" name="q6" value="A"><span class="option-badge">A</span> Автоматты (тыныс алу, жүрек соғу)</label>
-              <label class="option"><input type="radio" name="q6" value="B"><span class="option-badge">B</span> Ойлау</label>
-              <label class="option"><input type="radio" name="q6" value="C"><span class="option-badge">C</span> Есту</label>
-              <label class="option"><input type="radio" name="q6" value="D"><span class="option-badge">D</span> Иіскеу</label>
-            </div>
-          </fieldset>
+        <div class="result"></div>
+      </form>
 
-          <fieldset class="question-card" data-correct="B">
-            <div class="question-text"><span class="question-number">7</span> Мидың қай бөлігі эмоциялармен байланысты?</div>
-            <div class="options">
-              <label class="option"><input type="radio" name="q7" value="A"><span class="option-badge">A</span> Мишық</label>
-              <label class="option"><input type="radio" name="q7" value="B"><span class="option-badge">B</span> Лимбиялық жүйе</label>
-              <label class="option"><input type="radio" name="q7" value="C"><span class="option-badge">C</span> Ми діңі</label>
-              <label class="option"><input type="radio" name="q7" value="D"><span class="option-badge">D</span> Көру қыртысы</label>
-            </div>
-          </fieldset>
-
-          <fieldset class="question-card" data-correct="C">
-            <div class="question-text"><span class="question-number">8</span> Ми қанша энергия тұтынады?</div>
-            <div class="options">
-              <label class="option"><input type="radio" name="q8" value="A"><span class="option-badge">A</span> 5%</label>
-              <label class="option"><input type="radio" name="q8" value="B"><span class="option-badge">B</span> 10%</label>
-              <label class="option"><input type="radio" name="q8" value="C"><span class="option-badge">C</span> 20%</label>
-              <label class="option"><input type="radio" name="q8" value="D"><span class="option-badge">D</span> 50%</label>
-            </div>
-          </fieldset>
-
-          <!-- Продолжаем до 21 -->
-          <fieldset class="question-card" data-correct="A">
-            <div class="question-text"><span class="question-number">9</span> Мидың қай бөлігі есте сақтаумен тығыз байланысты?</div>
-            <div class="options">
-              <label class="option"><input type="radio" name="q9" value="A"><span class="option-badge">A</span> Гиппокамп</label>
-              <label class="option"><input type="radio" name="q9" value="B"><span class="option-badge">B</span> Амигдала</label>
-              <label class="option"><input type="radio" name="q9" value="C"><span class="option-badge">C</span> Таламус</label>
-              <label class="option"><input type="radio" name="q9" value="D"><span class="option-badge">D</span> Гипоталамус</label>
-            </div>
-          </fieldset>
-
-          <fieldset class="question-card" data-correct="B">
-            <div class="question-text"><span class="question-number">10</span> Нейропластикалық деген не?</div>
-            <div class="options">
-              <label class="option"><input type="radio" name="q10" value="A"><span class="option-badge">A</span> Мидың қатаюы</label>
-              <label class="option"><input type="radio" name="q10" value="B"><span class="option-badge">B</span> Мидың өзгеру және бейімделу қабілеті</label>
-              <label class="option"><input type="radio" name="q10" value="C"><span class="option-badge">C</span> Нейрондардың өлуі</label>
-              <label class="option"><input type="radio" name="q10" value="D"><span class="option-badge">D</span> Мидың үлкеюі</label>
-            </div>
-          </fieldset>
-
-          <!-- 11–21 (оставшиеся вопросы из твоего файла) -->
-          <fieldset class="question-card" data-correct="C"><div class="question-text"><span class="question-number">11</span> Мидың сол жақ жарты шары негізінен не үшін жауап береді?</div><div class="options"><label class="option"><input type="radio" name="q11" value="A"><span class="option-badge">A</span> Шығармашылық</label><label class="option"><input type="radio" name="q11" value="B"><span class="option-badge">B</span> Эмоциялар</label><label class="option"><input type="radio" name="q11" value="C"><span class="option-badge">C</span> Логика және тіл</label><label class="option"><input type="radio" name="q11" value="D"><span class="option-badge">D</span> Кеңістіктік бағдар</label></div></fieldset>
-          <fieldset class="question-card" data-correct="A"><div class="question-text"><span class="question-number">12</span> Мидың оң жақ жарты шары...</div><div class="options"><label class="option"><input type="radio" name="q12" value="A"><span class="option-badge">A</span> Шығармашылық және кеңістіктік ойлау</label><label class="option"><input type="radio" name="q12" value="B"><span class="option-badge">B</span> Математика</label><label class="option"><input type="radio" name="q12" value="C"><span class="option-badge">C</span> Грамматика</label><label class="option"><input type="radio" name="q12" value="D"><span class="option-badge">D</span> Анализ</label></div></fieldset>
-          <fieldset class="question-card" data-correct="B"><div class="question-text"><span class="question-number">13</span> Мидағы «сіңірлі дене» (corpus callosum) не істейді?</div><div class="options"><label class="option"><input type="radio" name="q13" value="A"><span class="option-badge">A</span> Екі жарты шарды ажыратады</label><label class="option"><input type="radio" name="q13" value="B"><span class="option-badge">B</span> Екі жарты шарды байланыстырады</label><label class="option"><input type="radio" name="q13" value="C"><span class="option-badge">C</span> Қан айналымын реттейді</label><label class="option"><input type="radio" name="q13" value="D"><span class="option-badge">D</span> Температураны басқарады</label></div></fieldset>
-          <fieldset class="question-card" data-correct="C"><div class="question-text"><span class="question-number">14</span> Мидағы нейрондар саны шамамен қанша?</div><div class="options"><label class="option"><input type="radio" name="q14" value="A"><span class="option-badge">A</span> 1 миллиард</label><label class="option"><input type="radio" name="q14" value="B"><span class="option-badge">B</span> 10 миллиард</label><label class="option"><input type="radio" name="q14" value="C"><span class="option-badge">C</span> 86 миллиард</label><label class="option"><input type="radio" name="q14" value="D"><span class="option-badge">D</span> 100 триллион</label></div></fieldset>
-          <fieldset class="question-card" data-correct="A"><div class="question-text"><span class="question-number">15</span> Глия жасушаларының негізгі қызметі?</div><div class="options"><label class="option"><input type="radio" name="q15" value="A"><span class="option-badge">A</span> Нейрондарды қорғау және қоректендіру</label><label class="option"><input type="radio" name="q15" value="B"><span class="option-badge">B</span> Сигнал беру</label><label class="option"><input type="radio" name="q15" value="C"><span class="option-badge">C</span> Энергия өндіру</label><label class="option"><input type="radio" name="q15" value="D"><span class="option-badge">D</span> Қозғалыс</label></div></fieldset>
-          <fieldset class="question-card" data-correct="B"><div class="question-text"><span class="question-number">16</span> Мидың тепе-теңдікті және қозғалысты үйлестіретін бөлігі?</div><div class="options"><label class="option"><input type="radio" name="q16" value="A"><span class="option-badge">A</span> Ми діңі</label><label class="option"><input type="radio" name="q16" value="B"><span class="option-badge">B</span> Мишық</label><label class="option"><input type="radio" name="q16" value="C"><span class="option-badge">C</span> Үлкен ми</label><label class="option"><input type="radio" name="q16" value="D"><span class="option-badge">D</span> Нейрондар</label></div></fieldset>
-          <fieldset class="question-card" data-correct="C"><div class="question-text"><span class="question-number">17</span> Мида нейрондардың шамамен саны қанша миллиард?</div><div class="options"><label class="option"><input type="radio" name="q17" value="A"><span class="option-badge">A</span> 50</label><label class="option"><input type="radio" name="q17" value="B"><span class="option-badge">B</span> 68</label><label class="option"><input type="radio" name="q17" value="C"><span class="option-badge">C</span> 86</label><label class="option"><input type="radio" name="q17" value="D"><span class="option-badge">D</span> 100</label></div></fieldset>
-          <fieldset class="question-card" data-correct="B"><div class="question-text"><span class="question-number">18</span> Мидың ең үлкен бөлігі?</div><div class="options"><label class="option"><input type="radio" name="q18" value="A"><span class="option-badge">A</span> Мишық</label><label class="option"><input type="radio" name="q18" value="B"><span class="option-badge">B</span> Үлкен ми (Cerebrum)</label><label class="option"><input type="radio" name="q18" value="C"><span class="option-badge">C</span> Ми діңі</label><label class="option"><input type="radio" name="q18" value="D"><span class="option-badge">D</span> Нейрон</label></div></fieldset>
-          <fieldset class="question-card" data-correct="B"><div class="question-text"><span class="question-number">19</span> Мидың өмір бойы өзгере алатын қасиеті?</div><div class="options"><label class="option"><input type="radio" name="q19" value="A"><span class="option-badge">A</span> Неврология</label><label class="option"><input type="radio" name="q19" value="B"><span class="option-badge">B</span> Нейропластикалық</label><label class="option"><input type="radio" name="q19" value="C"><span class="option-badge">C</span> Невроз</label><label class="option"><input type="radio" name="q19" value="D"><span class="option-badge">D</span> Нейропатия</label></div></fieldset>
-          <fieldset class="question-card" data-correct="B"><div class="question-text"><span class="question-number">20</span> Ми діңі қандай функцияларды басқарады?</div><div class="options"><label class="option"><input type="radio" name="q20" value="A"><span class="option-badge">A</span> Ерікті</label><label class="option"><input type="radio" name="q20" value="B"><span class="option-badge">B</span> Автоматты</label><label class="option"><input type="radio" name="q20" value="C"><span class="option-badge">C</span> Шығармашылық</label><label class="option"><input type="radio" name="q20" value="D"><span class="option-badge">D</span> Эмоционалды</label></div></fieldset>
-          <fieldset class="question-card" data-correct="C"><div class="question-text"><span class="question-number">21</span> Үлкен ми (cerebrum) қандай әрекеттерді басқарады?</div><div class="options"><label class="option"><input type="radio" name="q21" value="A"><span class="option-badge">A</span> Автоматты</label><label class="option"><input type="radio" name="q21" value="B"><span class="option-badge">B</span> Рефлекстік</label><label class="option"><input type="radio" name="q21" value="C"><span class="option-badge">C</span> Ерікті (ойлау, оқу)</label><label class="option"><input type="radio" name="q21" value="D"><span class="option-badge">D</span> Тек сезім</label></div></fieldset>
-
-          <div class="task-actions">
-            <button type="button" class="btn-primary" data-action="check">Нәтижені тексеру</button>
-            <button type="button" class="btn-secondary" data-action="reset">Қайта бастау</button>
+      <!-- Present Simple vs Present Continuous -->
+      <div class="section textblock">
+        <h3 style="color: var(--primary); margin-bottom: 16px;" data-i18n="present_tenses_title">2. Present Simple vs Present Continuous</h3>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
+          <div style="background: #f0f9ff; padding: 20px; border-radius: 8px; border-left: 4px solid var(--primary);">
+            <h4 style="color: var(--primary); margin-bottom: 12px;">📅 Present Simple</h4>
+            <p data-i18n="present_simple_usage"><strong>Usage:</strong> Regular actions, facts, general truths</p>
+            <p data-i18n="present_simple_formula"><strong>Formula:</strong> I/You/We/They + verb<br>He/She/It + verb<strong style="color: #dc2626;">s</strong></p>
+            <p data-i18n="present_simple_examples"><strong>Examples:</strong></p>
+            <ul style="margin-left: 20px;">
+              <li>I <em>work</em> every day.</li>
+              <li>She <em>studies</em> English.</li>
+              <li>The sun <em>rises</em> in the east.</li>
+            </ul>
           </div>
 
-          <div class="result"></div>
-        </form>
-      </div>
-    </div>
+          <div style="background: #f0fdf4; padding: 20px; border-radius: 8px; border-left: 4px solid #10b981;">
+            <h4 style="color: #10b981; margin-bottom: 12px;">⏰ Present Continuous</h4>
+            <p data-i18n="present_cont_usage"><strong>Usage:</strong> Actions happening now, temporary situations</p>
+            <p data-i18n="present_cont_formula"><strong>Formula:</strong> am/is/are + verb<strong style="color: #dc2626;">ing</strong></p>
+            <p data-i18n="present_cont_examples"><strong>Examples:</strong></p>
+            <ul style="margin-left: 20px;">
+              <li>I <em>am working</em> right now.</li>
+              <li>She <em>is studying</em> at the moment.</li>
+              <li>They <em>are playing</em> football.</li>
+            </ul>
+          </div>
+        </div>
 
+        <div style="background: #fef7ed; padding: 20px; border-radius: 8px; margin: 16px 0; border-left: 4px solid #f59e0b;">
+          <h4 style="color: #f59e0b; margin-bottom: 12px;">🎯 Key Differences</h4>
+          <p><strong>Permanent vs Temporary:</strong></p>
+          <ul style="margin-left: 20px; margin-bottom: 12px;">
+            <li>I <em>live</em> in Almaty. (permanent - Present Simple)</li>
+            <li>I <em>am living</em> in a hotel this week. (temporary - Present Continuous)</li>
+          </ul>
+          <p><strong>Regular vs Now:</strong></p>
+          <ul style="margin-left: 20px;">
+            <li>He <em>works</em> as a teacher. (regular job - Present Simple)</li>
+            <li>He <em>is working</em> on a project today. (now - Present Continuous)</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Tasks for Present Tenses -->
+      <form class="quiz section" data-lesson-id="module1-grammar-present">
+        <h4 style="color: var(--primary); margin: 24px 0 16px 0;">Exercises: Present Simple vs Present Continuous</h4>
+
+        <!-- Task 1: Multiple Choice -->
+        <div class="task-group">
+          <h5 style="color: #6b7280; margin: 20px 0 12px 0;">Task 1: Multiple Choice Questions</h5>
+          
+          <fieldset class="question" data-correct="A">
+            <legend class="q-title">1) Which sentence is in Present Simple?</legend>
+            <div class="options">
+              <label class="option"><input type="radio" name="q1" value="A"><span class="badge">A</span> She works in an office.</label>
+              <label class="option"><input type="radio" name="q1" value="B"><span class="badge">B</span> She is working now.</label>
+              <label class="option"><input type="radio" name="q1" value="C"><span class="badge">C</span> She worked yesterday.</label>
+              <label class="option"><input type="radio" name="q1" value="D"><span class="badge">D</span> She will work tomorrow.</label>
+            </div>
+          </fieldset>
+
+          <fieldset class="question" data-correct="B">
+            <legend class="q-title">2) Choose the correct form: "Look! It ______ outside."</legend>
+            <div class="options">
+              <label class="option"><input type="radio" name="q2" value="A"><span class="badge">A</span> rains</label>
+              <label class="option"><input type="radio" name="q2" value="B"><span class="badge">B</span> is raining</label>
+              <label class="option"><input type="radio" name="q2" value="C"><span class="badge">C</span> rain</label>
+              <label class="option"><input type="radio" name="q2" value="D"><span class="badge">D</span> raining</label>
+            </div>
+          </fieldset>
+        </div>
+
+        <!-- Task 2: True/False -->
+        <div class="task-group">
+          <h5 style="color: #6b7280; margin: 20px 0 12px 0;">Task 2: True/False Questions</h5>
+          
+          <fieldset class="question" data-correct="A">
+            <legend class="q-title">3) Present Continuous is used for actions happening at the moment of speaking.</legend>
+            <div class="options">
+              <label class="option"><input type="radio" name="q3" value="A"><span class="badge">A</span> True</label>
+              <label class="option"><input type="radio" name="q3" value="B"><span class="badge">B</span> False</label>
+            </div>
+          </fieldset>
+
+          <fieldset class="question" data-correct="B">
+            <legend class="q-title">4) "I am living in London for 10 years" is correct for a permanent situation.</legend>
+            <div class="options">
+              <label class="option"><input type="radio" name="q4" value="A"><span class="badge">A</span> True</label>
+              <label class="option"><input type="radio" name="q4" value="B"><span class="badge">B</span> False</label>
+            </div>
+          </fieldset>
+        </div>
+
+        <!-- Task 3: Sentence Completion -->
+        <div class="task-group">
+          <h5 style="color: #6b7280; margin: 20px 0 12px 0;">Task 3: Complete the Sentences</h5>
+          
+          <fieldset class="question" data-correct="C">
+            <legend class="q-title">5) Complete: "He usually ______ TV in the evening."</legend>
+            <div class="options">
+              <label class="option"><input type="radio" name="q5" value="A"><span class="badge">A</span> is watching</label>
+              <label class="option"><input type="radio" name="q5" value="B"><span class="badge">B</span> watch</label>
+              <label class="option"><input type="radio" name="q5" value="C"><span class="badge">C</span> watches</label>
+              <label class="option"><input type="radio" name="q5" value="D"><span class="badge">D</span> watching</label>
+            </div>
+          </fieldset>
+
+          <fieldset class="question" data-correct="B">
+            <legend class="q-title">6) Complete: "______ you ______ to the party tonight?"</legend>
+            <div class="options">
+              <label class="option"><input type="radio" name="q6" value="A"><span class="badge">A</span> Do...come</label>
+              <label class="option"><input type="radio" name="q6" value="B"><span class="badge">B</span> Are...coming</label>
+              <label class="option"><input type="radio" name="q6" value="C"><span class="badge">C</span> Does...come</label>
+              <label class="option"><input type="radio" name="q6" value="D"><span class="badge">D</span> Is...come</label>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="actions">
+          <button class="btn" data-action="check" type="button">Check Results</button>
+          <button class="btn secondary" data-action="reset" type="button">Reset</button>
+        </div>
+
+        <div class="result"></div>
+      </form>
+
+    </div>
   </div>
 
   <script src="assets/app.js"></script>

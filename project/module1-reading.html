@@ -8,377 +8,1140 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --secondary: #f59e0b;
+      --success: #10b981;
+      --text: #1f2937;
+      --text-light: #6b7280;
+      --border: #e5e7eb;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background: #f9fafb;
+      padding-bottom: 60px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 60px;
+      padding: 40px 20px;
+      background: linear-gradient(135deg, var(--primary) 0%, #6366f1 100%);
+      border-radius: 20px;
+      color: white;
+    }
+
+    .page-header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+    }
+
+    .page-header p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
+    /* Reading Text Section */
+    .reading-section {
+      background: white;
+      border-radius: 16px;
+      padding: 40px;
+      margin-bottom: 50px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border: 2px solid var(--border);
+    }
+
+    .reading-section h2 {
+      color: var(--primary);
+      font-size: 2rem;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .reading-section p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 16px;
+      text-align: justify;
+    }
+
+    /* Task Section - Enhanced Visual Hierarchy */
+    .task-section {
+      background: white;
+      border-radius: 20px;
+      padding: 0;
+      margin-bottom: 60px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      border: 3px solid var(--primary);
+      overflow: hidden;
+    }
+
+    .task-header {
+      background: linear-gradient(135deg, var(--primary) 0%, #6366f1 100%);
+      color: white;
+      padding: 30px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .task-header h3 {
+      font-size: 1.8rem;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .task-number-badge {
+      background: rgba(255, 255, 255, 0.3);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      backdrop-filter: blur(10px);
+    }
+
+    .task-count {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .task-body {
+      padding: 40px;
+    }
+
+    .task-type-badge {
+      display: inline-block;
+      background: #dbeafe;
+      color: #1e40af;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    /* Question Cards with Strong Visual Separation */
+    .question-card {
+      background: #f9fafb;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 20px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .question-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 5px;
+      background: var(--primary);
+      border-radius: 12px 0 0 12px;
+    }
+
+    .question-card:hover {
+      border-color: var(--primary);
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .question-card.correct {
+      border-color: var(--success);
+      background: #ecfdf5;
+    }
+
+    .question-card.correct::before {
+      background: var(--success);
+    }
+
+    .question-card.incorrect {
+      border-color: #ef4444;
+      background: #fef2f2;
+    }
+
+    .question-card.incorrect::before {
+      background: #ef4444;
+    }
+
+    .question-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--primary);
+      color: white;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-weight: bold;
+      margin-right: 12px;
+      font-size: 0.9rem;
+    }
+
+    .question-text {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .options {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .option {
+      display: flex;
+      align-items: center;
+      padding: 14px 18px;
+      background: white;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      gap: 12px;
+    }
+
+    .option:hover {
+      border-color: var(--primary);
+      background: #f0f9ff;
+    }
+
+    .option input {
+      cursor: pointer;
+      width: 20px;
+      height: 20px;
+    }
+
+    .option-badge {
+      background: var(--primary);
+      color: white;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    /* Action Buttons */
+    .task-actions {
+      display: flex;
+      gap: 16px;
+      margin-top: 32px;
+      padding-top: 32px;
+      border-top: 2px solid var(--border);
+    }
+
+    .btn {
+      padding: 14px 32px;
+      border-radius: 10px;
+      border: none;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #4338ca;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
+    }
+
+    .btn-secondary {
+      background: #f3f4f6;
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      background: #e5e7eb;
+    }
+
+    /* Results Display */
+    .result-box {
+      margin-top: 32px;
+      padding: 24px;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: 600;
+      display: none;
+    }
+
+    .result-box.show {
+      display: block;
+    }
+
+    /* Task Separator */
+    .task-separator {
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+      margin: 60px 0;
+      position: relative;
+    }
+
+    .task-separator::after {
+      content: '• • •';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background: #f9fafb;
+      padding: 0 20px;
+      color: var(--primary);
+      font-size: 1.5rem;
+    }
+  </style>
 </head>
 <body>
-  <nav class="nav">
-    <div class="nav-inner">
-      <div class="nav-brand">
-        <span class="logo">📚</span>
-        <span class="brand-name">EasyEnglish</span>
-      </div>
-      
-      <div class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="module1.html">Module 1</a>
-        <a href="module1-reading.html" class="active">Reading</a>
-        <a href="module1-grammar.html">Grammar</a>
-        <a href="results.html">My Results</a>
-      </div>
+  <div class="container">
+    <div class="page-header">
+      <h1>📖 Module 1: Reading Texts</h1>
+      <p>Explore fascinating topics while improving reading comprehension skills</p>
+    </div>
 
-      <div class="nav-right">
-        <div class="lang-switch">
-          <button class="lang-btn" data-lang="kk" onclick="setLang('kk')" aria-label="Қазақ тілі">KZ</button>
-          <button class="lang-btn" data-lang="ru" onclick="setLang('ru')" aria-label="Русский">RU</button>
-          <button class="lang-btn" data-lang="en" onclick="setLang('en')" aria-label="English">EN</button>
-        </div>
+    <!-- Reading Text Section -->
+    <div class="reading-section">
+      <h2>🧠 The Human Brain</h2>
+      <p>The human brain is one of the most complex and fascinating organs in our body. It weighs about 1.4 kilograms and contains approximately 86 billion neurons. The brain is responsible for controlling our thoughts, memory, emotions, touch, motor skills, vision, breathing, temperature, and every process that regulates our body.</p>
+      <p>The brain is divided into several parts, each with specific functions. The cerebrum, the largest part, controls voluntary actions like thinking and learning. The cerebellum helps with coordination and balance, while the brainstem manages automatic functions such as breathing and heart rate.</p>
+      <p>Neuroplasticity is the brain's ability to change and adapt throughout life. This means we can learn new things and form new connections between neurons at any age. Proper nutrition, exercise, and mental challenges help keep our brain healthy and active.</p>
+    </div>
 
-        <div class="auth-section">
-          <button id="loginBtn" class="btn-login">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor">
-              <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z" fill="#4285F4"/>
-              <path d="M9.003 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.96v2.332C2.44 15.983 5.485 18 9.003 18z" fill="#34A853"/>
-              <path d="M3.964 10.712c-.18-.54-.282-1.117-.282-1.71 0-.593.102-1.17.282-1.71V4.96H.957C.347 6.175 0 7.55 0 9.002c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/>
-              <path d="M9.003 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.464.891 11.426 0 9.003 0 5.485 0 2.44 2.017.96 4.96L3.967 7.29c.708-2.127 2.692-3.71 5.036-3.71z" fill="#EA4335"/>
-            </svg>
-            Google
-          </button>
-          
-          <div id="userProfile" class="user-profile">
-            <img id="userPhoto" class="avatar" alt="User" />
-            <span id="userName"></span>
-            <button class="btn-logout" onclick="logout()">Logout</button>
+    <!-- TASK 1: Multiple Choice with Multiple Answers (7 questions) -->
+    <div class="task-section">
+      <div class="task-header">
+        <h3>
+          <span class="task-number-badge">1</span>
+          Multiple Choice Questions
+        </h3>
+        <span class="task-count">7 Questions</span>
+      </div>
+      <div class="task-body">
+        <div class="task-type-badge">📋 Choose ALL correct answers</div>
+
+        <div class="question-card">
+          <div class="question-text">
+            <span class="question-number">1</span>
+            <span>Which of the following are mentioned as functions of the human brain? (Select all that apply)</span>
+          </div>
+          <div class="options">
+            <label class="option">
+              <input type="checkbox" name="q1" value="A">
+              <span class="option-badge">A</span>
+              <span>Controlling thoughts and memory</span>
+            </label>
+            <label class="option">
+              <input type="checkbox" name="q1" value="B">
+              <span class="option-badge">B</span>
+              <span>Regulating body temperature</span>
+            </label>
+            <label class="option">
+              <input type="checkbox" name="q1" value="C">
+              <span class="option-badge">C</span>
+              <span>Digesting food</span>
+            </label>
+            <label class="option">
+              <input type="checkbox" name="q1" value="D">
+              <span class="option-badge">D</span>
+              <span>Managing emotions and vision</span>
+            </label>
+            <label class="option">
+              <input type="checkbox" name="q1" value="E">
+              <span class="option-badge">E</span>
+              <span>Producing blood cells</span>
+            </label>
           </div>
         </div>
+
+        <div class="question-card">
+          <div class="question-text">
+            <span class="question-number">2</span>
+            <span>What are the main parts of the brain mentioned in the text? (Select all that apply)</span>
+          </div>
+          <div class="options">
+            <label class="option">
+              <input type="checkbox" name="q2" value="A">
+              <span class="option-badge">A</span>
+              <span>Hippocampus</span>
+            </label>
+            <label class="option">
+              <input type="checkbox" name="q2" value="B">
+              <span class="option-badge">B</span>
+              <span>Cerebrum</span>
+            </label>
+            <label class="option">
+              <input type="checkbox" name="q2" value="C">
+              <span class="option-badge">C</span>
+              <span>Cerebellum</span>
+            </label>
+            <label class="option">
+              <input type="checkbox" name="q2" value="D">
+              <span class="option-badge">D</span>
+              <span>Amygdala</span>
+            </label>
+            <label class="option">
+              <input type="checkbox" name="q2" value="E">
+              <span class="option-badge">E</span>
+              <span>Brainstem</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <div class="question-text">
+            <span class="question-number">3</span>
+            <span>Which statements about neuroplasticity are true? (Select all that apply)</span>
+          </div>
+          <div class="options">
+            <label class="option">
+              <input type="checkbox" name="q3" value="A">
+              <span class="option-badge">A</span>
+              <span>It allows the brain to change throughout life</span>
+            </label>
+            <label class="option">
+              <input type="checkbox" name="q3" value="B">
+              <span class="option-badge">B</span>
+              <span>It only occurs during childhood</span>
+            </label>
+            <label class="option">
+              <input type="checkbox" name="q3" value="C">
+              <span class="option-badge">C</span>
+              <span>It enables forming new neural connections</span>
+            </label>
+            <label class="option">
+              <input type="checkbox" name="q3" value="D">
+              <span class="option-badge">D</span>
+              <span>It helps in learning new things at any age</span>
+            </label>
+            <label class="option">
+              <input type="checkbox" name="q3" value="E">
+              <span class="option-badge">E</span>
+              <span>It makes the brain heavier over time</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <div class="question-text">
+            <span class="question-number">4</span>
+            <span>Which of these help keep the brain healthy? (Select all that apply)</span>
+          </div>
+          <div class="options">
+            <label class="option">
+              <input type="checkbox" name="q4" value="A">
+              <span class="option-badge">A</span>
+              <span>Proper nutrition</span>
+            </label>
+            <label class="option">
+              <input type="checkbox" name="q4" value="B">
+              <span class="option-badge">B</span>
+              <span>Avoiding all challenges</span>
+            </label>
+            <label class="option">
+              <input type="checkbox" name="q4" value="C">
+              <span class="option-badge">C</span>
+              <span>Regular exercise</span>
+            </label>
+            <label class="option">
+              <input type="checkbox" name="q4" value="D">
+              <span class="option-badge">D</span>
+              <span>Mental challenges</span>
+            </label>
+            <label class="option">
+              <input type="checkbox" name="q4" value="E">
+              <span class="option-badge">E</span>
+              <span>Complete rest</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <div class="question-text">
+            <span class="question-number">5</span>
+            <span>What does the cerebrum control? (Select all that apply)</span>
+          </div>
+          <div class="options">
+            <label class="option">
+              <input type="checkbox" name="q5" value="A">
+              <span class="option-badge">A</span>
+              <span>Voluntary actions</span>
+            </label>
+            <label class="option">
+              <input type="checkbox" name="q5" value="B">
+              <span class="option-badge">B</span>
+              <span>Heart rate</span>
+            </label>
+            <label class="option">
+              <input type="checkbox" name="q5" value="C">
+              <span class="option-badge">C</span>
+              <span>Thinking</span>
+            </label>
+            <label class="option">
+              <input type="checkbox" name="q5" value="D">
+              <span class="option-badge">D</span>
+              <span>Learning</span>
+            </label>
+            <label class="option">
+              <input type="checkbox" name="q5" value="E">
+              <span class="option-badge">E</span>
+              <span>Automatic breathing</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <div class="question-text">
+            <span class="question-number">6</span>
+            <span>What characteristics of neurons are mentioned? (Select all that apply)</span>
+          </div>
+          <div class="options">
+            <label class="option">
+              <input type="checkbox" name="q6" value="A">
+              <span class="option-badge">A</span>
+              <span>There are approximately 86 billion in the brain</span>
+            </label>
+            <label class="option">
+              <input type="checkbox" name="q6" value="B">
+              <span class="option-badge">B</span>
+              <span>They cannot form new connections</span>
+            </label>
+            <label class="option">
+              <input type="checkbox" name="q6" value="C">
+              <span class="option-badge">C</span>
+              <span>They can form new connections throughout life</span>
+            </label>
+            <label class="option">
+              <input type="checkbox" name="q6" value="D">
+              <span class="option-badge">D</span>
+              <span>They stop growing after age 25</span>
+            </label>
+            <label class="option">
+              <input type="checkbox" name="q6" value="E">
+              <span class="option-badge">E</span>
+              <span>They are only found in the cerebrum</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <div class="question-text">
+            <span class="question-number">7</span>
+            <span>Which brain functions are described as automatic? (Select all that apply)</span>
+          </div>
+          <div class="options">
+            <label class="option">
+              <input type="checkbox" name="q7" value="A">
+              <span class="option-badge">A</span>
+              <span>Breathing</span>
+            </label>
+            <label class="option">
+              <input type="checkbox" name="q7" value="B">
+              <span class="option-badge">B</span>
+              <span>Thinking</span>
+            </label>
+            <label class="option">
+              <input type="checkbox" name="q7" value="C">
+              <span class="option-badge">C</span>
+              <span>Heart rate</span>
+            </label>
+            <label class="option">
+              <input type="checkbox" name="q7" value="D">
+              <span class="option-badge">D</span>
+              <span>Learning</span>
+            </label>
+            <label class="option">
+              <input type="checkbox" name="q7" value="E">
+              <span class="option-badge">E</span>
+              <span>Walking</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="task-actions">
+          <button class="btn btn-primary" data-action="check">Check Results</button>
+          <button class="btn btn-secondary" data-action="reset">Reset</button>
+        </div>
+
+        <div class="result-box"></div>
       </div>
     </div>
-  </nav>
 
-  <div class="wrap">
-    <div class="card">
-      <div class="lesson-header">
-        <div class="lesson-icon-large">📖</div>
-        <h2>Module 1: Reading Texts</h2>
-        <p class="lead">Read the texts about human brain and complete the exercises</p>
+    <div class="task-separator"></div>
+
+    <!-- TASK 2: True/False (7 questions) -->
+    <div class="task-section">
+      <div class="task-header">
+        <h3>
+          <span class="task-number-badge">2</span>
+          True or False
+        </h3>
+        <span class="task-count">7 Questions</span>
       </div>
+      <div class="task-body">
+        <div class="task-type-badge">✓✗ Determine if statements are true or false</div>
 
-      <!-- Text 1: Human Brain -->
-      <div class="section textblock">
-        <h3 style="color: var(--primary); margin-bottom: 16px;">The Human Brain</h3>
-        <p>The human brain is one of the most complex and fascinating organs in our body. It weighs about 1.4 kilograms and contains approximately 86 billion neurons. The brain is responsible for controlling our thoughts, memory, emotions, touch, motor skills, vision, breathing, temperature, and every process that regulates our body.</p>
-        <p>The brain is divided into several parts, each with specific functions. The cerebrum, the largest part, controls voluntary actions like thinking and learning. The cerebellum helps with coordination and balance, while the brainstem manages automatic functions such as breathing and heart rate.</p>
-        <p>Neuroplasticity is the brain's ability to change and adapt throughout life. This means we can learn new things and form new connections between neurons at any age. Proper nutrition, exercise, and mental challenges help keep our brain healthy and active.</p>
+        <div class="question-card">
+          <div class="question-text">
+            <span class="question-number">8</span>
+            <span>The brainstem manages automatic functions like breathing.</span>
+          </div>
+          <div class="options">
+            <label class="option">
+              <input type="radio" name="q8" value="A">
+              <span class="option-badge">T</span>
+              <span>True</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="q8" value="B">
+              <span class="option-badge">F</span>
+              <span>False</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <div class="question-text">
+            <span class="question-number">9</span>
+            <span>The cerebellum is responsible for emotions and memory.</span>
+          </div>
+          <div class="options">
+            <label class="option">
+              <input type="radio" name="q9" value="A">
+              <span class="option-badge">T</span>
+              <span>True</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="q9" value="B">
+              <span class="option-badge">F</span>
+              <span>False</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <div class="question-text">
+            <span class="question-number">10</span>
+            <span>The human brain weighs approximately 1.4 kilograms.</span>
+          </div>
+          <div class="options">
+            <label class="option">
+              <input type="radio" name="q10" value="A">
+              <span class="option-badge">T</span>
+              <span>True</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="q10" value="B">
+              <span class="option-badge">F</span>
+              <span>False</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <div class="question-text">
+            <span class="question-number">11</span>
+            <span>Neuroplasticity only occurs during childhood and adolescence.</span>
+          </div>
+          <div class="options">
+            <label class="option">
+              <input type="radio" name="q11" value="A">
+              <span class="option-badge">T</span>
+              <span>True</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="q11" value="B">
+              <span class="option-badge">F</span>
+              <span>False</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <div class="question-text">
+            <span class="question-number">12</span>
+            <span>The cerebrum is the largest part of the brain.</span>
+          </div>
+          <div class="options">
+            <label class="option">
+              <input type="radio" name="q12" value="A">
+              <span class="option-badge">T</span>
+              <span>True</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="q12" value="B">
+              <span class="option-badge">F</span>
+              <span>False</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <div class="question-text">
+            <span class="question-number">13</span>
+            <span>The brain contains approximately 86 billion neurons.</span>
+          </div>
+          <div class="options">
+            <label class="option">
+              <input type="radio" name="q13" value="A">
+              <span class="option-badge">T</span>
+              <span>True</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="q13" value="B">
+              <span class="option-badge">F</span>
+              <span>False</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <div class="question-text">
+            <span class="question-number">14</span>
+            <span>Mental challenges help keep the brain healthy and active.</span>
+          </div>
+          <div class="options">
+            <label class="option">
+              <input type="radio" name="q14" value="A">
+              <span class="option-badge">T</span>
+              <span>True</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="q14" value="B">
+              <span class="option-badge">F</span>
+              <span>False</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="task-actions">
+          <button class="btn btn-primary" data-action="check">Check Results</button>
+          <button class="btn btn-secondary" data-action="reset">Reset</button>
+        </div>
+
+        <div class="result-box"></div>
       </div>
+    </div>
 
-      <!-- Tasks for Text 1 -->
-      <form class="quiz section" data-lesson-id="module1-reading-brain">
-        <h4 style="color: var(--primary); margin: 24px 0 16px 0;">Exercises: The Human Brain</h4>
+    <div class="task-separator"></div>
 
-        <!-- Task 1: Multiple Choice with Multiple Answers -->
-        <div class="task-group">
-          <h5 style="color: #6b7280; margin: 20px 0 12px 0;">Task 1: Multiple Choice Questions (Choose ALL correct answers)</h5>
-          
-          <fieldset class="question" data-correct="A,B,D">
-            <legend class="q-title">1) Which of the following are mentioned as functions of the human brain? (Select all that apply)</legend>
-            <div class="options">
-              <label class="option"><input type="checkbox" name="q1" value="A"><span class="badge">A</span> Controlling thoughts and memory</label>
-              <label class="option"><input type="checkbox" name="q1" value="B"><span class="badge">B</span> Regulating body temperature</label>
-              <label class="option"><input type="checkbox" name="q1" value="C"><span class="badge">C</span> Digesting food</label>
-              <label class="option"><input type="checkbox" name="q1" value="D"><span class="badge">D</span> Managing emotions and vision</label>
-              <label class="option"><input type="checkbox" name="q1" value="E"><span class="badge">E</span> Producing blood cells</label>
-            </div>
-          </fieldset>
-
-          <fieldset class="question" data-correct="B,C,E">
-            <legend class="q-title">2) What are the main parts of the brain mentioned in the text? (Select all that apply)</legend>
-            <div class="options">
-              <label class="option"><input type="checkbox" name="q2" value="A"><span class="badge">A</span> Hippocampus</label>
-              <label class="option"><input type="checkbox" name="q2" value="B"><span class="badge">B</span> Cerebrum</label>
-              <label class="option"><input type="checkbox" name="q2" value="C"><span class="badge">C</span> Cerebellum</label>
-              <label class="option"><input type="checkbox" name="q2" value="D"><span class="badge">D</span> Amygdala</label>
-              <label class="option"><input type="checkbox" name="q2" value="E"><span class="badge">E</span> Brainstem</label>
-            </div>
-          </fieldset>
-
-          <fieldset class="question" data-correct="A,C,D">
-            <legend class="q-title">3) Which statements about neuroplasticity are true? (Select all that apply)</legend>
-            <div class="options">
-              <label class="option"><input type="checkbox" name="q3" value="A"><span class="badge">A</span> It allows the brain to change throughout life</label>
-              <label class="option"><input type="checkbox" name="q3" value="B"><span class="badge">B</span> It only occurs during childhood</label>
-              <label class="option"><input type="checkbox" name="q3" value="C"><span class="badge">C</span> It enables forming new neural connections</label>
-              <label class="option"><input type="checkbox" name="q3" value="D"><span class="badge">D</span> It helps in learning new things at any age</label>
-              <label class="option"><input type="checkbox" name="q3" value="E"><span class="badge">E</span> It makes the brain heavier over time</label>
-            </div>
-          </fieldset>
-        </div>
-
-        <!-- Task 2: True/False -->
-        <div class="task-group">
-          <h5 style="color: #6b7280; margin: 20px 0 12px 0;">Task 2: True/False Questions</h5>
-          
-          <fieldset class="question" data-correct="A">
-            <legend class="q-title">4) The brainstem manages automatic functions like breathing.</legend>
-            <div class="options">
-              <label class="option"><input type="radio" name="q4" value="A"><span class="badge">A</span> True</label>
-              <label class="option"><input type="radio" name="q4" value="B"><span class="badge">B</span> False</label>
-            </div>
-          </fieldset>
-
-          <fieldset class="question" data-correct="B">
-            <legend class="q-title">5) The cerebellum is responsible for emotions and memory.</legend>
-            <div class="options">
-              <label class="option"><input type="radio" name="q5" value="A"><span class="badge">A</span> True</label>
-              <label class="option"><input type="radio" name="q5" value="B"><span class="badge">B</span> False</label>
-            </div>
-          </fieldset>
-        </div>
-
-        <!-- Task 3: Fill in the Blanks -->
-        <div class="task-group">
-          <h5 style="color: #6b7280; margin: 20px 0 12px 0;">Task 3: Fill in the Blanks</h5>
-          
-          <fieldset class="question" data-correct="B">
-            <legend class="q-title">6) The human brain weighs about ______ kilograms.</legend>
-            <div class="options">
-              <label class="option"><input type="radio" name="q6" value="A"><span class="badge">A</span> 1.0</label>
-              <label class="option"><input type="radio" name="q6" value="B"><span class="badge">B</span> 1.4</label>
-              <label class="option"><input type="radio" name="q6" value="C"><span class="badge">C</span> 2.0</label>
-              <label class="option"><input type="radio" name="q6" value="D"><span class="badge">D</span> 2.5</label>
-            </div>
-          </fieldset>
-
-          <fieldset class="question" data-correct="C">
-            <legend class="q-title">7) ______ helps with coordination and balance.</legend>
-            <div class="options">
-              <label class="option"><input type="radio" name="q7" value="A"><span class="badge">A</span> Cerebrum</label>
-              <label class="option"><input type="radio" name="q7" value="B"><span class="badge">B</span> Brainstem</label>
-              <label class="option"><input type="radio" name="q7" value="C"><span class="badge">C</span> Cerebellum</label>
-              <label class="option"><input type="radio" name="q7" value="D"><span class="badge">D</span> Neurons</label>
-            </div>
-          </fieldset>
-        </div>
-
-        <div class="actions">
-          <button class="btn" data-action="check" type="button">Check Results</button>
-          <button class="btn secondary" data-action="reset" type="button">Reset</button>
-        </div>
-
-        <div class="result"></div>
-      </form>
-
-      <!-- Text 2: Stress and Stress Symptoms -->
-      <div class="section textblock">
-        <h3 style="color: var(--primary); margin-bottom: 16px;">Stress and Stress Symptoms</h3>
-        <p>Stress is the body's natural response to challenges or demands. While short-term stress can be helpful in dangerous situations, chronic stress can have negative effects on both physical and mental health.</p>
-        <p>Common physical symptoms of stress include headaches, muscle tension, fatigue, and sleep problems. Emotional symptoms may involve anxiety, irritability, depression, and difficulty concentrating. Behavioral changes like overeating or undereating, social withdrawal, and increased use of alcohol or drugs can also indicate stress.</p>
-        <p>Managing stress is crucial for overall well-being. Effective strategies include regular exercise, relaxation techniques like meditation, maintaining social connections, and ensuring adequate sleep. Recognizing stress symptoms early helps in taking appropriate action to reduce their impact.</p>
+    <!-- TASK 3: Fill in the Blanks (7 questions) -->
+    <div class="task-section">
+      <div class="task-header">
+        <h3>
+          <span class="task-number-badge">3</span>
+          Complete the Sentences
+        </h3>
+        <span class="task-count">7 Questions</span>
       </div>
+      <div class="task-body">
+        <div class="task-type-badge">✏️ Choose the correct answer to complete each sentence</div>
 
-      <!-- Tasks for Text 2 -->
-      <form class="quiz section" data-lesson-id="module1-reading-stress">
-        <h4 style="color: var(--primary); margin: 24px 0 16px 0;">Exercises: Stress and Stress Symptoms</h4>
-
-        <!-- Task 1: Multiple Choice with Multiple Answers -->
-        <div class="task-group">
-          <h5 style="color: #6b7280; margin: 20px 0 12px 0;">Task 1: Multiple Choice Questions (Choose ALL correct answers)</h5>
-          
-          <fieldset class="question" data-correct="A,C,D">
-            <legend class="q-title">1) Which of these are mentioned as physical symptoms of stress? (Select all that apply)</legend>
-            <div class="options">
-              <label class="option"><input type="checkbox" name="q1" value="A"><span class="badge">A</span> Headaches</label>
-              <label class="option"><input type="checkbox" name="q1" value="B"><span class="badge">B</span> Fever</label>
-              <label class="option"><input type="checkbox" name="q1" value="C"><span class="badge">C</span> Muscle tension</label>
-              <label class="option"><input type="checkbox" name="q1" value="D"><span class="badge">D</span> Sleep problems</label>
-              <label class="option"><input type="checkbox" name="q1" value="E"><span class="badge">E</span> Skin rash</label>
-            </div>
-          </fieldset>
-
-          <fieldset class="question" data-correct="B,D,E">
-            <legend class="q-title">2) What emotional symptoms of stress are mentioned in the text? (Select all that apply)</legend>
-            <div class="options">
-              <label class="option"><input type="checkbox" name="q2" value="A"><span class="badge">A</span> Happiness</label>
-              <label class="option"><input type="checkbox" name="q2" value="B"><span class="badge">B</span> Anxiety</label>
-              <label class="option"><input type="checkbox" name="q2" value="C"><span class="badge">C</span> Excitement</label>
-              <label class="option"><input type="checkbox" name="q2" value="D"><span class="badge">D</span> Irritability</label>
-              <label class="option"><input type="checkbox" name="q2" value="E"><span class="badge">E</span> Difficulty concentrating</label>
-            </div>
-          </fieldset>
-
-          <fieldset class="question" data-correct="A,B,C">
-            <legend class="q-title">3) Which strategies for managing stress are recommended? (Select all that apply)</legend>
-            <div class="options">
-              <label class="option"><input type="checkbox" name="q3" value="A"><span class="badge">A</span> Regular exercise</label>
-              <label class="option"><input type="checkbox" name="q3" value="B"><span class="badge">B</span> Relaxation techniques</label>
-              <label class="option"><input type="checkbox" name="q3" value="C"><span class="badge">C</span> Maintaining social connections</label>
-              <label class="option"><input type="checkbox" name="q3" value="D"><span class="badge">D</span> Working longer hours</label>
-              <label class="option"><input type="checkbox" name="q3" value="E"><span class="badge">E</span> Avoiding sleep</label>
-            </div>
-          </fieldset>
+        <div class="question-card">
+          <div class="question-text">
+            <span class="question-number">15</span>
+            <span>The human brain weighs about ______ kilograms.</span>
+          </div>
+          <div class="options">
+            <label class="option">
+              <input type="radio" name="q15" value="A">
+              <span class="option-badge">A</span>
+              <span>1.0</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="q15" value="B">
+              <span class="option-badge">B</span>
+              <span>1.4</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="q15" value="C">
+              <span class="option-badge">C</span>
+              <span>2.0</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="q15" value="D">
+              <span class="option-badge">D</span>
+              <span>2.5</span>
+            </label>
+          </div>
         </div>
 
-        <!-- Task 2: True/False -->
-        <div class="task-group">
-          <h5 style="color: #6b7280; margin: 20px 0 12px 0;">Task 2: True/False Questions</h5>
-          
-          <fieldset class="question" data-correct="B">
-            <legend class="q-title">4) Short-term stress is always harmful to health.</legend>
-            <div class="options">
-              <label class="option"><input type="radio" name="q4" value="A"><span class="badge">A</span> True</label>
-              <label class="option"><input type="radio" name="q4" value="B"><span class="badge">B</span> False</label>
-            </div>
-          </fieldset>
-
-          <fieldset class="question" data-correct="A">
-            <legend class="q-title">5) Social withdrawal can be a behavioral symptom of stress.</legend>
-            <div class="options">
-              <label class="option"><input type="radio" name="q5" value="A"><span class="badge">A</span> True</label>
-              <label class="option"><input type="radio" name="q5" value="B"><span class="badge">B</span> False</label>
-            </div>
-          </fieldset>
+        <div class="question-card">
+          <div class="question-text">
+            <span class="question-number">16</span>
+            <span>______ helps with coordination and balance.</span>
+          </div>
+          <div class="options">
+            <label class="option">
+              <input type="radio" name="q16" value="A">
+              <span class="option-badge">A</span>
+              <span>Cerebrum</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="q16" value="B">
+              <span class="option-badge">B</span>
+              <span>Brainstem</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="q16" value="C">
+              <span class="option-badge">C</span>
+              <span>Cerebellum</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="q16" value="D">
+              <span class="option-badge">D</span>
+              <span>Neurons</span>
+            </label>
+          </div>
         </div>
 
-        <!-- Task 3: Matching -->
-        <div class="task-group">
-          <h5 style="color: #6b7280; margin: 20px 0 12px 0;">Task 3: Matching Exercise</h5>
-          
-          <fieldset class="question" data-correct="B">
-            <legend class="q-title">6) Match the stress management technique: Regular exercise</legend>
-            <div class="options">
-              <label class="option"><input type="radio" name="q6" value="A"><span class="badge">A</span> Emotional symptom</label>
-              <label class="option"><input type="radio" name="q6" value="B"><span class="badge">B</span> Management strategy</label>
-              <label class="option"><input type="radio" name="q6" value="C"><span class="badge">C</span> Physical symptom</label>
-              <label class="option"><input type="radio" name="q6" value="D"><span class="badge">D</span> Behavioral change</label>
-            </div>
-          </fieldset>
-
-          <fieldset class="question" data-correct="A">
-            <legend class="q-title">7) Match the symptom: Anxiety</legend>
-            <div class="options">
-              <label class="option"><input type="radio" name="q7" value="A"><span class="badge">A</span> Emotional symptom</label>
-              <label class="option"><input type="radio" name="q7" value="B"><span class="badge">B</span> Physical symptom</label>
-              <label class="option"><input type="radio" name="q7" value="C"><span class="badge">C</span> Management strategy</label>
-              <label class="option"><input type="radio" name="q7" value="D"><span class="badge">D</span> Type of stress</label>
-            </div>
-          </fieldset>
+        <div class="question-card">
+          <div class="question-text">
+            <span class="question-number">17</span>
+            <span>The brain contains approximately ______ billion neurons.</span>
+          </div>
+          <div class="options">
+            <label class="option">
+              <input type="radio" name="q17" value="A">
+              <span class="option-badge">A</span>
+              <span>50</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="q17" value="B">
+              <span class="option-badge">B</span>
+              <span>68</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="q17" value="C">
+              <span class="option-badge">C</span>
+              <span>86</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="q17" value="D">
+              <span class="option-badge">D</span>
+              <span>100</span>
+            </label>
+          </div>
         </div>
 
-        <div class="actions">
-          <button class="btn" data-action="check" type="button">Check Results</button>
-          <button class="btn secondary" data-action="reset" type="button">Reset</button>
+        <div class="question-card">
+          <div class="question-text">
+            <span class="question-number">18</span>
+            <span>The ______ is the largest part of the brain.</span>
+          </div>
+          <div class="options">
+            <label class="option">
+              <input type="radio" name="q18" value="A">
+              <span class="option-badge">A</span>
+              <span>Cerebellum</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="q18" value="B">
+              <span class="option-badge">B</span>
+              <span>Cerebrum</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="q18" value="C">
+              <span class="option-badge">C</span>
+              <span>Brainstem</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="q18" value="D">
+              <span class="option-badge">D</span>
+              <span>Neuron</span>
+            </label>
+          </div>
         </div>
 
-        <div class="result"></div>
-      </form>
+        <div class="question-card">
+          <div class="question-text">
+            <span class="question-number">19</span>
+            <span>______ is the brain's ability to change and adapt throughout life.</span>
+          </div>
+          <div class="options">
+            <label class="option">
+              <input type="radio" name="q19" value="A">
+              <span class="option-badge">A</span>
+              <span>Neurology</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="q19" value="B">
+              <span class="option-badge">B</span>
+              <span>Neuroplasticity</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="q19" value="C">
+              <span class="option-badge">C</span>
+              <span>Neuroscience</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="q19" value="D">
+              <span class="option-badge">D</span>
+              <span>Neuropathy</span>
+            </label>
+          </div>
+        </div>
 
-      <!-- Continue with other texts in similar pattern -->
-      <!-- Text 3: IQ -->
-      <div class="section textblock">
-        <h3 style="color: var(--primary); margin-bottom: 16px;">IQ (Intelligence Quotient)</h3>
-        <p>IQ, or Intelligence Quotient, is a measure of a person's cognitive abilities compared to others in their age group. The concept was developed in the early 20th century by psychologists Alfred Binet and Theodore Simon to identify students who needed educational assistance.</p>
-        <p>Modern IQ tests assess various mental capabilities including logical reasoning, problem-solving, mathematical ability, spatial recognition, and language comprehension. An average IQ score is set at 100, with about 68% of the population scoring between 85 and 115.</p>
-        <p>It's important to understand that IQ tests measure only certain types of intelligence and don't account for creativity, emotional intelligence, practical skills, or wisdom. Many experts believe that intelligence is multifaceted and cannot be fully captured by a single number.</p>
+        <div class="question-card">
+          <div class="question-text">
+            <span class="question-number">20</span>
+            <span>The brainstem manages ______ functions.</span>
+          </div>
+          <div class="options">
+            <label class="option">
+              <input type="radio" name="q20" value="A">
+              <span class="option-badge">A</span>
+              <span>Voluntary</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="q20" value="B">
+              <span class="option-badge">B</span>
+              <span>Automatic</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="q20" value="C">
+              <span class="option-badge">C</span>
+              <span>Creative</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="q20" value="D">
+              <span class="option-badge">D</span>
+              <span>Emotional</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <div class="question-text">
+            <span class="question-number">21</span>
+            <span>The cerebrum controls ______ actions like thinking and learning.</span>
+          </div>
+          <div class="options">
+            <label class="option">
+              <input type="radio" name="q21" value="A">
+              <span class="option-badge">A</span>
+              <span>Automatic</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="q21" value="B">
+              <span class="option-badge">B</span>
+              <span>Involuntary</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="q21" value="C">
+              <span class="option-badge">C</span>
+              <span>Voluntary</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="q21" value="D">
+              <span class="option-badge">D</span>
+              <span>Reflex</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="task-actions">
+          <button class="btn btn-primary" data-action="check">Check Results</button>
+          <button class="btn btn-secondary" data-action="reset">Reset</button>
+        </div>
+
+        <div class="result-box"></div>
       </div>
-
-      <!-- Tasks for Text 3 -->
-      <form class="quiz section" data-lesson-id="module1-reading-iq">
-        <h4 style="color: var(--primary); margin: 24px 0 16px 0;">Exercises: IQ (Intelligence Quotient)</h4>
-
-        <!-- Task 1: Multiple Choice with Multiple Answers -->
-        <div class="task-group">
-          <h5 style="color: #6b7280; margin: 20px 0 12px 0;">Task 1: Multiple Choice Questions (Choose ALL correct answers)</h5>
-          
-          <fieldset class="question" data-correct="B,C,D">
-            <legend class="q-title">1) What mental capabilities do modern IQ tests assess? (Select all that apply)</legend>
-            <div class="options">
-              <label class="option"><input type="checkbox" name="q1" value="A"><span class="badge">A</span> Musical ability</label>
-              <label class="option"><input type="checkbox" name="q1" value="B"><span class="badge">B</span> Logical reasoning</label>
-              <label class="option"><input type="checkbox" name="q1" value="C"><span class="badge">C</span> Problem-solving</label>
-              <label class="option"><input type="checkbox" name="q1" value="D"><span class="badge">D</span> Language comprehension</label>
-              <label class="option"><input type="checkbox" name="q1" value="E"><span class="badge">E</span> Artistic talent</label>
-            </div>
-          </fieldset>
-
-          <fieldset class="question" data-correct="A,C,E">
-            <legend class="q-title">2) Which aspects of intelligence are NOT measured by IQ tests? (Select all that apply)</legend>
-            <div class="options">
-              <label class="option"><input type="checkbox" name="q2" value="A"><span class="badge">A</span> Creativity</label>
-              <label class="option"><input type="checkbox" name="q2" value="B"><span class="badge">B</span> Mathematical ability</label>
-              <label class="option"><input type="checkbox" name="q2" value="C"><span class="badge">C</span> Emotional intelligence</label>
-              <label class="option"><input type="checkbox" name="q2" value="D"><span class="badge">D</span> Spatial recognition</label>
-              <label class="option"><input type="checkbox" name="q2" value="E"><span class="badge">E</span> Practical skills</label>
-            </div>
-          </fieldset>
-
-          <fieldset class="question" data-correct="A,D,E">
-            <legend class="q-title">3) Which statements about IQ scores are correct? (Select all that apply)</legend>
-            <div class="options">
-              <label class="option"><input type="checkbox" name="q3" value="A"><span class="badge">A</span> Average IQ is 100</label>
-              <label class="option"><input type="checkbox" name="q3" value="B"><span class="badge">B</span> Most people score below 85</label>
-              <label class="option"><input type="checkbox" name="q3" value="C"><span class="badge">C</span> IQ measures all types of intelligence</label>
-              <label class="option"><input type="checkbox" name="q3" value="D"><span class="badge">D</span> 68% score between 85-115</label>
-              <label class="option"><input type="checkbox" name="q3" value="E"><span class="badge">E</span> Intelligence is multifaceted</label>
-            </div>
-          </fieldset>
-        </div>
-
-        <!-- Task 2: True/False -->
-        <div class="task-group">
-          <h5 style="color: #6b7280; margin: 20px 0 12px 0;">Task 2: True/False Questions</h5>
-          
-          <fieldset class="question" data-correct="B">
-            <legend class="q-title">4) IQ tests measure all types of intelligence including creativity and emotional intelligence.</legend>
-            <div class="options">
-              <label class="option"><input type="radio" name="q4" value="A"><span class="badge">A</span> True</label>
-              <label class="option"><input type="radio" name="q4" value="B"><span class="badge">B</span> False</label>
-            </div>
-          </fieldset>
-
-          <fieldset class="question" data-correct="A">
-            <legend class="q-title">5) About 68% of the population scores between 85 and 115 on IQ tests.</legend>
-            <div class="options">
-              <label class="option"><input type="radio" name="q5" value="A"><span class="badge">A</span> True</label>
-              <label class="option"><input type="radio" name="q5" value="B"><span class="badge">B</span> False</label>
-            </div>
-          </fieldset>
-        </div>
-
-        <!-- Task 3: Gap Filling -->
-        <div class="task-group">
-          <h5 style="color: #6b7280; margin: 20px 0 12px 0;">Task 3: Complete the Sentences</h5>
-          
-          <fieldset class="question" data-correct="B">
-            <legend class="q-title">6) IQ tests assess capabilities like logical reasoning, problem-solving, and ______ comprehension.</legend>
-            <div class="options">
-              <label class="option"><input type="radio" name="q6" value="A"><span class="badge">A</span> Musical</label>
-              <label class="option"><input type="radio" name="q6" value="B"><span class="badge">B</span> Language</label>
-              <label class="option"><input type="radio" name="q6" value="C"><span class="badge">C</span> Physical</label>
-              <label class="option"><input type="radio" name="q6" value="D"><span class="badge">D</span> Artistic</label>
-            </div>
-          </fieldset>
-
-          <fieldset class="question" data-correct="C">
-            <legend class="q-title">7) Many experts believe intelligence is ______ and cannot be fully captured by a single number.</legend>
-            <div class="options">
-              <label class="option"><input type="radio" name="q7" value="A"><span class="badge">A</span> Simple</label>
-              <label class="option"><input type="radio" name="q7" value="B"><span class="badge">B</span> Unimportant</label>
-              <label class="option"><input type="radio" name="q7" value="C"><span class="badge">C</span> Multifaceted</label>
-              <label class="option"><input type="radio" name="q7" value="D"><span class="badge">D</span> Fixed</label>
-            </div>
-          </fieldset>
-        </div>
-
-        <div class="actions">
-          <button class="btn" data-action="check" type="button">Check Results</button>
-          <button class="btn secondary" data-action="reset" type="button">Reset</button>
-        </div>
-
-        <div class="result"></div>
-      </form>
-
     </div>
   </div>
 
   <script src="assets/app.js"></script>
   <script src="assets/auth.js"></script>
   <script src="assets/quiz.js"></script>
+  <script>
+    // Correct answers for each question
+    const correctAnswers = {
+      q1: ['A', 'B', 'D'],
+      q2: ['B', 'C', 'E'],
+      q3: ['A', 'C', 'D'],
+      q4: ['A', 'C', 'D'],
+      q5: ['A', 'C', 'D'],
+      q6: ['A', 'C'],
+      q7: ['A', 'C'],
+      q8: 'A',
+      q9: 'B',
+      q10: 'A',
+      q11: 'B',
+      q12: 'A',
+      q13: 'A',
+      q14: 'A',
+      q15: 'B',
+      q16: 'C',
+      q17: 'C',
+      q18: 'B',
+      q19: 'B',
+      q20: 'B',
+      q21: 'C'
+    };
+
+    // Helper function to compare arrays
+    function arraysEqual(a, b) {
+      if (a.length !== b.length) return false;
+      const sortedA = [...a].sort();
+      const sortedB = [...b].sort();
+      return sortedA.every((val, idx) => val === sortedB[idx]);
+    }
+
+    // Add event listeners to all task sections
+    document.querySelectorAll('.task-section').forEach((section, index) => {
+      const checkBtn = section.querySelector('[data-action="check"]');
+      const resetBtn = section.querySelector('[data-action="reset"]');
+      const resultBox = section.querySelector('.result-box');
+      const questions = section.querySelectorAll('.question-card');
+
+      checkBtn.addEventListener('click', () => {
+        let score = 0;
+        let total = questions.length;
+        let allAnswered = true;
+
+        questions.forEach(question => {
+          const questionName = question.querySelector('input').name;
+          const isCheckbox = question.querySelector('input[type="checkbox"]') !== null;
+          
+          let selectedValues = [];
+          
+          if (isCheckbox) {
+            const checked = question.querySelectorAll('input[type="checkbox"]:checked');
+            selectedValues = Array.from(checked).map(cb => cb.value);
+            if (selectedValues.length === 0) {
+              allAnswered = false;
+              return;
+            }
+          } else {
+            const selected = question.querySelector('input[type="radio"]:checked');
+            if (!selected) {
+              allAnswered = false;
+              return;
+            }
+            selectedValues = [selected.value];
+          }
+
+          // Remove previous styles
+          question.classList.remove('correct', 'incorrect');
+
+          // Check answer
+          const correct = correctAnswers[questionName];
+          const isCorrect = Array.isArray(correct) 
+            ? arraysEqual(selectedValues, correct)
+            : selectedValues[0] === correct;
+
+          if (isCorrect) {
+            question.classList.add('correct');
+            score++;
+          } else {
+            question.classList.add('incorrect');
+          }
+        });
+
+        if (!allAnswered) {
+          resultBox.className = 'result-box show';
+          resultBox.style.background = '#fef3c7';
+          resultBox.style.border = '2px solid #f59e0b';
+          resultBox.style.color = '#92400e';
+          resultBox.innerHTML = '⚠️ Please answer all questions before checking!';
+          return;
+        }
+
+        // Calculate percentage
+        const percentage = Math.round((score / total) * 100);
+        let message = '';
+        let bgColor = '';
+        let borderColor = '';
+        let textColor = '';
+
+        if (percentage >= 80) {
+          message = `🌟 Excellent! You got ${score} out of ${total} correct (${percentage}%)`;
+          bgColor = '#d1fae5';
+          borderColor = '#10b981';
+          textColor = '#065f46';
+        } else if (percentage >= 60) {
+          message = `👍 Good job! You got ${score} out of ${total} correct (${percentage}%)`;
+          bgColor = '#dbeafe';
+          borderColor = '#3b82f6';
+          textColor = '#1e40af';
+        } else {
+          message = `📖 Keep practicing! You got ${score} out of ${total} correct (${percentage}%)`;
+          bgColor = '#fef3c7';
+          borderColor = '#f59e0b';
+          textColor = '#92400e';
+        }
+
+        resultBox.className = 'result-box show';
+        resultBox.style.background = bgColor;
+        resultBox.style.border = `2px solid ${borderColor}`;
+        resultBox.style.color = textColor;
+        resultBox.innerHTML = message;
+
+        // Scroll to results
+        setTimeout(() => {
+          resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 100);
+
+        // Save result if user is logged in
+        if (typeof saveResult === 'function' && typeof auth !== 'undefined' && auth.currentUser) {
+          const lessonId = index === 0 ? 'module1-reading-brain' : 
+                          index === 1 ? 'module1-reading-brain-tf' : 
+                          'module1-reading-brain-fill';
+          saveResult(lessonId, score, total);
+        }
+      });
+
+      resetBtn.addEventListener('click', () => {
+        questions.forEach(question => {
+          question.classList.remove('correct', 'incorrect');
+          const inputs = question.querySelectorAll('input');
+          inputs.forEach(input => input.checked = false);
+        });
+        resultBox.className = 'result-box';
+        resultBox.innerHTML = '';
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  </script>
 </body>
 </html>
